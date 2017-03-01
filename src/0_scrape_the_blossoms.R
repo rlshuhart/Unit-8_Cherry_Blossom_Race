@@ -2,10 +2,15 @@ library(httr)
 library(rvest)
 library(stringr)
 
+# proxy <- str_split(Sys.getenv("https_proxy"),"://", simplify = TRUE)[2]
+# ip <- str_split(proxy,":", simplify = TRUE)[1]
+# port <- as.numeric(str_split(proxy,":", simplify = TRUE)[2])
+# set_config(use_proxy(url=ip,port=port))
+
 divisions <- c("Overall+Men", "Overall+Women")
 gender <- c("M", "W")
 event <- "10M"
-year <- c(2016, 2015, 2014)
+year <- 2012:1999
 
 get_web_table <- function(division, gender, event, year, page){
   # p for page; Webpage starts at 1
@@ -31,7 +36,20 @@ get_web_table <- function(division, gender, event, year, page){
 get_web_data <- function(division, gender, event, year){
   
   # Page 1 gather first to determine how many pages of data to retrieve
-  web_table <- get_web_table(division, gender, event, year, 1)
+  print(paste("Retrieving page: 1 | ", division,"/",year, sep=""))
+  
+  # Below block allows proxy adaption in order for Ryan to work on office network 
+  tryCatch({web_table <- get_web_table(division, gender, event, year, 1)},
+           error = function(e) {
+             proxy <- str_split(Sys.getenv("https_proxy"),"://", simplify = TRUE)[2]
+             ip <- str_split(proxy,":", simplify = TRUE)[1]
+             port <- as.numeric(str_split(proxy,":", simplify = TRUE)[2])
+             set_config(use_proxy(url=ip,port=port))
+           },
+           finally = {
+             web_table <- get_web_table(division, gender, event, year, 1)
+           }
+  )
   
   # Get total expected results and round up to next int for the max pages. 
   # ceiling function accomplishes the rounding up.
@@ -40,12 +58,31 @@ get_web_data <- function(division, gender, event, year){
   
   # Get the remaining pages of data
   for (p in 2:pages){
-    print(paste("Retrieving page:", p))
+    print(paste("Retrieving page: ", p, " of ", pages," | ", division,"/",year, sep=""))
     table <- get_web_table(division, gender, event, year, p)
     web_table <- rbind(web_table, table)
   }
   
+  # Additional Fields
+  web_table$Sex <- gender
+  web_table$Year <- year
+  web_table$Event <- event
+  
   return(web_table)
 }
 
-df <- get_web_data(divisions[1], gender[1], event, year[1])
+save_the_blossums <- function(run_data, file_name){
+  saveRDS(run_data, paste("./data/external/", file_name,sep=""))
+}
+
+
+###### Scrape the Data
+run_data <- data.frame()
+for (y in 1:length(year)){
+  for (d in 1:length(divisions)){
+    new_runs <- get_web_data(divisions[d], gender[d], event, year[y])
+    run_data <- rbind(run_data, new_runs)
+  }
+}
+
+save_the_blossums(run_data, "run_data1999-2012.rds")

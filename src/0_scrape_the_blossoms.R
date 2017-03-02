@@ -2,19 +2,13 @@ library(httr)
 library(rvest)
 library(stringr)
 
-# proxy <- str_split(Sys.getenv("https_proxy"),"://", simplify = TRUE)[2]
-# ip <- str_split(proxy,":", simplify = TRUE)[1]
-# port <- as.numeric(str_split(proxy,":", simplify = TRUE)[2])
-# set_config(use_proxy(url=ip,port=port))
-
 divisions <- c("Overall+Men", "Overall+Women")
 gender <- c("M", "W")
 event <- "10M"
 year <- 2012:1999
 
 get_web_table <- function(division, gender, event, year, page){
-  # p for page; Webpage starts at 1
-
+  
   root_url <- "http://www.cballtimeresults.org/performances?"
   url <- paste(root_url, 
                "division=", division,
@@ -24,7 +18,6 @@ get_web_table <- function(division, gender, event, year, page){
                "&year=", year, 
                sep="")
 
-  # Read page 1
   # Used selectorgadget to determine the html node
   web_table <-read_html(GET(url, add_headers('user-agent' = 'r'))) %>% 
     html_node(".rwd-table") %>% 
@@ -38,7 +31,9 @@ get_web_data <- function(division, gender, event, year){
   # Page 1 gather first to determine how many pages of data to retrieve
   print(paste("Retrieving page: 1 | ", division,"/",year, sep=""))
   
-  # Below block allows proxy adaption in order for Ryan to work on office network 
+  # Below block allows proxy adaption in order for Ryan to work on office network
+  # Proxy setting only established if there is a failure without using it. 
+  # No need to change for anyone else.
   tryCatch({web_table <- get_web_table(division, gender, event, year, 1)},
            error = function(e) {
              proxy <- str_split(Sys.getenv("https_proxy"),"://", simplify = TRUE)[2]
@@ -85,4 +80,5 @@ for (y in 1:length(year)){
   }
 }
 
-save_the_blossums(run_data, "run_data1999-2012.rds")
+fname <- paste("run_data",min(year),"-",max(year),".rds", sep="")
+save_the_blossums(run_data, fname)

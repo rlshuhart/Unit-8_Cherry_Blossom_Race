@@ -2,15 +2,12 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-#run_data <- readRDS("./data/external/run_data1999-2012.rds")
 run_data <- readRDS("./data/external/run_data1990-2016.rds")
 
+## Age Conversion - NR stands for Not Recorded, replaced with NA
+run_data$AgeInt <- as.numeric(run_data$Age)
 
-# Data Conversions
-run_data$Age <- as.numeric(run_data$Age)
-
-# Time Clean Up
-
+## Time Clean Up
 # Some times have * after time - not sure what it means yet, but creating a column to market it
 run_data$hasTimeAsterisk <- 0
 run_data[grep("\\*", run_data$Time),]$hasTimeAsterisk <- 1
@@ -23,12 +20,19 @@ run_data$Time<-gsub("\\*", "",  run_data$Time)
 # 1. mm:ss only
 # 2. hh:mm:ss only
 # 3. mix of mm:ss and hh:mm:ss
+
 m <- str_split(run_data$Time, ":", simplify = TRUE)
 
 if (ncol(m) == 3){
-  run_data$test <- if_else(m[,3] == "", as.numeric(m[,1]) * 60 + as.numeric(m[,2]), 
+  run_data$TimeInSeconds <- if_else(m[,3] == "", as.numeric(m[,1]) * 60 + as.numeric(m[,2]), 
           as.numeric(m[,1]) * 3600 + as.numeric(m[,2]) * 60 + as.numeric(m[,3]))
+} else if (ncol(m) == 2){
+  run_data$TimeInSeconds <- as.numeric(m[,1]) * 60 + as.numeric(m[,2])
 }
+
+
+
+#### Scratch code below ####
 run_data$TimeInSeconds <- as.numeric(m[,1]) * 3600 + as.numeric(m[,2]) * 60 + as.numeric(m[,3])
 run_data$TimeAsDuration <- duration(hours=as.numeric(m[,1]), 
                                     minutes=as.numeric(m[,2]), 

@@ -1,0 +1,67 @@
+---
+title: "Blossom Cleaning"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+```
+
+## Inspection of Data
+```{r}
+run_data <- readRDS("./data/external/run_data1990-2016.rds")
+str(run_data)
+```
+### Data Quality Observations
+* All values are chararacter
+* Age needs to be converted to int type
+* Time and Pace need to be converted to minutes
+
+#### Age Conversion
+```{r}
+# Convert age to int
+## Age Conversion - NR stands for Not Recorded, replaced with NA
+run_data$Age <- as.numeric(run_data$Age)
+```
+NAs introduced by coercion, so lets see why..
+
+
+
+```{r}
+## Time Clean Up
+# Some times have * after time - not sure what it means yet, but creating a column to market it
+run_data$hasTimeAsterisk <- 0
+run_data[grep("\\*", run_data$Time),]$hasTimeAsterisk <- 1
+
+# Remove Asterisk
+run_data$Time<-gsub("\\*", "",  run_data$Time)
+
+# add time in seconds
+# problem is the format is inconsistent, some are in mm:ss and some in hh:mm:ss
+# 1. mm:ss only
+# 2. hh:mm:ss only
+# 3. mix of mm:ss and hh:mm:ss
+
+m <- str_split(run_data$Time, ":", simplify = TRUE)
+
+if (ncol(m) == 3){
+  run_data$TimeInMinutes <- if_else(m[,3] == "", as.numeric(m[,1]) + as.numeric(m[,2])/60, 
+          as.numeric(m[,1]) * 60 + as.numeric(m[,2]) + as.numeric(m[,3])/60)
+} else if (ncol(m) == 2){
+  run_data$TimeInMinutes <- as.numeric(m[,1]) * 60 + as.numeric(m[,2])
+}
+
+str(run_data)
+```
+
+```{r}
+library(ggplot2)
+qplot(run_data$TimeInMinutes)
+```
+
+```{r}
+qplot(tmp$AgeInt, y=tmp$TimeInMinutes)
+```
+

@@ -1,0 +1,75 @@
+---
+title: "Blossom Cleaning"
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(stringr)
+```
+
+
+```{r}
+#Open Scraped Data-set
+data = readRDS("../data/external/run_data1999-2012.rds")
+head(data)
+```
+
+```{r}
+## Time Clean Up
+# Some times have * after time - not sure what it means yet, but creating a column to market it
+data$hasTimeAsterisk <- 0
+#data[grep("\\*", data$Time),]$hasTimeAsterisk <- 1
+
+# Remove Asterisk
+data$Time<-gsub("\\*", "",  data$Time)
+
+# add time in minutes
+# problem is the format is inconsistent, some are in mm:ss and some in hh:mm:ss
+# 1. mm:ss only
+# 2. hh:mm:ss only
+# 3. mix of mm:ss and hh:mm:ss
+
+m <- str_split(data$Time, ":", simplify = TRUE)
+
+if (ncol(m) == 3){
+  data$TimeInMin <- if_else(m[,3] == "", as.numeric(m[,1]) + as.numeric(m[,2]) / 60, 
+          as.numeric(m[,1]) * 60 + as.numeric(m[,2]) + as.numeric(m[,3]) / 60)
+} else if (ncol(m) == 2){
+  data$TimeInMin <- as.numeric(m[,1]) + as.numeric(m[,2]) / 60
+}
+
+head(data$TimeInMin)
+```
+
+```{r}
+unique(data$Race)
+## Validate Ages
+summary(as.numeric(data$Age))
+```
+```{r}
+## Remove 10M from Race and change to Year
+data$Year = as.numeric(gsub(" 10M","", data$Race))
+head(data$Year)
+```
+
+```{r}
+## Select male data
+male_data = filter(data, Sex == "M")
+
+male_data = select(male_data, Name, Age, Year, TimeInMin)
+
+head(male_data)
+plot(male_data$Age~male_data$TimeInMin)
+```
+
+```{r}
+## Select female data
+female_data = filter(data, Sex == "W")
+
+female_data = select(female_data, Name, Age, Year, TimeInMin)
+
+head(female_data)
+plot(female_data$Age~female_data$TimeInMin)
+```
+

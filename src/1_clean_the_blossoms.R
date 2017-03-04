@@ -2,7 +2,7 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-run_data <- readRDS("./data/external/run_data1990-2016.rds")
+run_data <- readRDS("../data/external/run_data1990-2016.rds")
 
 ## Age Conversion - NR stands for Not Recorded, replaced with NA
 run_data$AgeInt <- as.numeric(run_data$Age)

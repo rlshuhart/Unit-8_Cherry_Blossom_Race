@@ -59,10 +59,10 @@ convert_time <- function(time_vector){
   return(time_vector)
 }
 
-run_data$TimeInMin <- convert_time(run_data$Time)
-run_data$PaceInMin <- convert_time(run_data$Pace)
+run_data <- run_data %>% mutate(TimeInMin = convert_time(Time),
+                                PaceInMin = convert_time(Pace))
 
-head(run_data$TimeInMin)
+str(run_data)
 ```
 
 ```{r}

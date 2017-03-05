@@ -13,6 +13,4 @@ Project Organization
     │
     ├── src                <- Scripts to download, generate, or clean data
     │    
-    └── notebooks          <- Jupyter and R notebooks. Naming convention is a number (for ordering),
-                              the creator's initials, and a short `-` delimited description, e.g.
-                              `1.0-jqp-initial-data-exploration`.
+    └── notebooks          <- R notebooks for exploration and analysis

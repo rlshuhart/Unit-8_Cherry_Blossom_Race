@@ -5,7 +5,7 @@ library(stringr)
 divisions <- c("Overall+Men", "Overall+Women")
 gender <- c("M", "W")
 event <- "10M"
-year <- 2012:1999
+year <- 2016:1990
 
 get_web_table <- function(division, gender, event, year, page){
   
@@ -80,5 +80,5 @@ for (y in 1:length(year)){
   }
 }
 
-fname <- paste("run_data",min(year),"-",max(year),".rds", sep="")
+fname <- paste("run_data_",min(year),"-",max(year),".rds", sep="")
 save_the_blossums(run_data, fname)

@@ -15,6 +15,18 @@ data = readRDS("../data/external/run_data1999-2012.rds")
 head(data)
 ```
 
+### Data Quality Observations
+* All values are chararacter
+* Age needs to be converted to int type
+* Time and Pace need to be converted to minutes
+
+#### Age Conversion
+```{r}
+# Convert age to int
+## Age Conversion - NR stands for Not Recorded, replaced with NA
+data$Age <- as.numeric(data$Age)
+```
+
 ```{r}
 ## Time Clean Up
 # Some times have * after time - not sure what it means yet, but creating a column to market it
@@ -45,12 +57,7 @@ head(data$TimeInMin)
 ```{r}
 unique(data$Race)
 ## Validate Ages
-summary(as.numeric(data$Age))
-```
-```{r}
-## Remove 10M from Race and change to Year
-data$Year = as.numeric(gsub(" 10M","", data$Race))
-head(data$Year)
+summary(data$Age)
 ```
 
 ```{r}
@@ -64,6 +71,17 @@ plot(male_data$Age~male_data$TimeInMin)
 ```
 
 ```{r}
+## Male boxplots, age by year
+boxplot(as.numeric(Age)~Year, data=male_data)
+```
+
+```{r}
+## Male boxplots, time by age group
+maleAgeCat = cut(as.numeric(male_data$Age), breaks= c(seq(15, 75, 10), 90))
+plot(male_data$TimeInMin ~ maleAgeCat)
+```
+
+```{r}
 ## Select female data
 female_data = filter(data, Sex == "W")
 
@@ -71,5 +89,17 @@ female_data = select(female_data, Name, Age, Year, TimeInMin)
 
 head(female_data)
 plot(female_data$Age~female_data$TimeInMin)
+```
+
+```{r}
+## Female boxplots, age by year
+boxplot(as.numeric(Age)~Year, data=female_data)
+```
+
+```{r}
+## Female boxplots, time by age group
+femaleAgeCat = cut(as.numeric(female_data$Age), breaks= c(seq(15, 75, 10), 90))
+table(femaleAgeCat)
+plot(female_data$TimeInMin ~ femaleAgeCat)
 ```
 

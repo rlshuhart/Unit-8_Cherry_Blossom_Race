@@ -11,7 +11,7 @@ library(stringr)
 
 ## Inspection of Data
 ```{r}
-run_data <- readRDS("./data/external/run_data1990-2016.rds")
+run_data <- readRDS("../data/external/run_data1999-2012.rds")
 str(run_data)
 ```
 ### Data Quality Observations

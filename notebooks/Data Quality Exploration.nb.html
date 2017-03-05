@@ -174,9 +174,23 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmxpYnJhcnkodGlkeXIpXG5saWJyYXJ5KHN0cmluZ3IpXG5gYGAifQ== -->
-<pre class="r"><code>library(dplyr)
-library(tidyr)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmBgYCJ9 -->
+<pre class="r"><code>library(dplyr)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixZHBseXLjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOnN0YXRz46S847iyOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOmJhc2XjpLzjuLI6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
+<pre><code>
+Attaching package: &lt;U+393C&gt;&lt;U+3E31&gt;dplyr&lt;U+393C&gt;&lt;U+3E32&gt;
+
+The following objects are masked from &lt;U+393C&gt;&lt;U+3E31&gt;package:stats&lt;U+393C&gt;&lt;U+3E32&gt;:
+
+    filter, lag
+
+The following objects are masked from &lt;U+393C&gt;&lt;U+3E31&gt;package:base&lt;U+393C&gt;&lt;U+3E32&gt;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5cilcbmxpYnJhcnkoc3RyaW5ncilcbmBgYCJ9 -->
+<pre class="r"><code>library(tidyr)
 library(stringr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -185,22 +199,24 @@ library(stringr)</code></pre>
 <h2>Inspection of Data</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucnVuX2RhdGEgPC0gcmVhZFJEUyhcIi4vZGF0YS9leHRlcm5hbC9ydW5fZGF0YTE5OTAtMjAxNi5yZHNcIilcbnN0cihydW5fZGF0YSlcbmBgYCJ9 -->
-<pre class="r"><code>run_data &lt;- readRDS(&quot;./data/external/run_data1990-2016.rds&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucnVuX2RhdGEgPC0gcmVhZFJEUyhcIi4uL2RhdGEvZXh0ZXJuYWwvcnVuX2RhdGExOTk5LTIwMTIucmRzXCIpXG5zdHIocnVuX2RhdGEpXG5gYGAifQ== -->
+<pre class="r"><code>run_data &lt;- readRDS(&quot;../data/external/run_data1999-2012.rds&quot;)
 str(run_data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MjU1MzE0IG9icy4gb2YgIDEwIHZhcmlhYmxlczpcbiAkIFJhY2UgICAgOiBjaHIgIFwiMjAxNiAxME1cIiBcIjIwMTYgMTBNXCIgXCIyMDE2IDEwTVwiIFwiMjAxNiAxME1cIiAuLi5cbiAkIE5hbWUgICAgOiBjaHIgIFwiU2FtIENoZWxhbmdhIChNKVwiIFwiU2lsYXMgS2lwcnV0byAoTSlcIiBcIk1hcnRpbiBIZWhpciAoTSlcIiBcIlRlcmVmYSBEZWJlbGEgRGVsZXNhIChNKVwiIC4uLlxuICQgQWdlICAgICA6IGNociAgXCIzMVwiIFwiMzFcIiBcIjIzXCIgXCIxN1wiIC4uLlxuICQgVGltZSAgICA6IGNociAgXCI0ODoyNlwiIFwiNDg6MjdcIiBcIjQ4OjI5XCIgXCI0ODo1MFwiIC4uLlxuICQgUGFjZSAgICA6IGNociAgXCI0OjUxXCIgXCI0OjUxXCIgXCI0OjUxXCIgXCI0OjUzXCIgLi4uXG4gJCBQaVMvVGlTIDogY2hyICBcIjEvNjM3MVwiIFwiMi82MzcxXCIgXCIzLzYzNzFcIiBcIjQvNjM3MVwiIC4uLlxuICQgRGl2aXNpb246IGNociAgXCJNMzAzNFwiIFwiTTMwMzRcIiBcIk0yMDI0XCIgXCJNMDExOVwiIC4uLlxuICQgUGlEL1RpRCA6IGNociAgXCIxLzEyOTBcIiBcIjIvMTI5MFwiIFwiMS8zMThcIiBcIjIvMzE4XCIgLi4uXG4gJCBIb21ldG93bjogY2hyICBcIlR1Y3NvbiwgQVpcIiBcIkxhbnNpbmcsIE1JXCIgXCJTeXJhY3VzZSwgTllcIiBcIldlc3QgQ2hlc3RlciwgUEFcIiAuLi5cbiAkIFNleCAgICAgOiBjaHIgIFwiTVwiIFwiTVwiIFwiTVwiIFwiTVwiIC4uLlxuIn0= -->
-<pre><code>'data.frame':   255314 obs. of  10 variables:
- $ Race    : chr  &quot;2016 10M&quot; &quot;2016 10M&quot; &quot;2016 10M&quot; &quot;2016 10M&quot; ...
- $ Name    : chr  &quot;Sam Chelanga (M)&quot; &quot;Silas Kipruto (M)&quot; &quot;Martin Hehir (M)&quot; &quot;Terefa Debela Delesa (M)&quot; ...
- $ Age     : chr  &quot;31&quot; &quot;31&quot; &quot;23&quot; &quot;17&quot; ...
- $ Time    : chr  &quot;48:26&quot; &quot;48:27&quot; &quot;48:29&quot; &quot;48:50&quot; ...
- $ Pace    : chr  &quot;4:51&quot; &quot;4:51&quot; &quot;4:51&quot; &quot;4:53&quot; ...
- $ PiS/TiS : chr  &quot;1/6371&quot; &quot;2/6371&quot; &quot;3/6371&quot; &quot;4/6371&quot; ...
- $ Division: chr  &quot;M3034&quot; &quot;M3034&quot; &quot;M2024&quot; &quot;M0119&quot; ...
- $ PiD/TiD : chr  &quot;1/1290&quot; &quot;2/1290&quot; &quot;1/318&quot; &quot;2/318&quot; ...
- $ Hometown: chr  &quot;Tucson, AZ&quot; &quot;Lansing, MI&quot; &quot;Syracuse, NY&quot; &quot;West Chester, PA&quot; ...
- $ Sex     : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MTQ1ODYzIG9icy4gb2YgIDEyIHZhcmlhYmxlczpcbiAkIFJhY2UgICAgOiBjaHIgIFwiMjAxMiAxME1cIiBcIjIwMTIgMTBNXCIgXCIyMDEyIDEwTVwiIFwiMjAxMiAxME1cIiAuLi5cbiAkIE5hbWUgICAgOiBjaHIgIFwiQWxsYW4gS2lwcm9ubyAoTSlcIiBcIkxhbmkgS2lwbGFnYXQgKE0pXCIgXCJKb2huIEtvcmlyIChNKVwiIFwiSWFuIEJ1cnJlbGwgKE0pXCIgLi4uXG4gJCBBZ2UgICAgIDogY2hyICBcIjIyXCIgXCIyM1wiIFwiMzZcIiBcIjI3XCIgLi4uXG4gJCBUaW1lICAgIDogY2hyICBcIjA6NDU6MTVcIiBcIjA6NDY6MjhcIiBcIjA6NDc6MzNcIiBcIjA6NDc6MzRcIiAuLi5cbiAkIFBhY2UgICAgOiBjaHIgIFwiNDozMlwiIFwiNDozOVwiIFwiNDo0NVwiIFwiNDo0NVwiIC4uLlxuICQgUGlTL1RpUyA6IGNociAgXCIxLzcxOTVcIiBcIjIvNzE5NVwiIFwiMy83MTk1XCIgXCI0LzcxOTVcIiAuLi5cbiAkIERpdmlzaW9uOiBjaHIgIFwiTTIwMjRcIiBcIk0yMDI0XCIgXCJNMzUzOVwiIFwiTTI1MjlcIiAuLi5cbiAkIFBpRC9UaUQgOiBjaHIgIFwiMS8zNDdcIiBcIjIvMzQ3XCIgXCIxLzEwOTNcIiBcIjEvMTQ1N1wiIC4uLlxuICQgSG9tZXRvd246IGNociAgXCJJdGVuLCBLZW55YVwiIFwiSXRlbiwgS2VueWFcIiBcIkl0ZW4sIEtlbnlhXCIgXCJUdWNzb24sIEFaXCIgLi4uXG4gJCBTZXggICAgIDogY2hyICBcIk1cIiBcIk1cIiBcIk1cIiBcIk1cIiAuLi5cbiAkIFllYXIgICAgOiBpbnQgIDIwMTIgMjAxMiAyMDEyIDIwMTIgMjAxMiAyMDEyIDIwMTIgMjAxMiAyMDEyIDIwMTIgLi4uXG4gJCBFdmVudCAgIDogY2hyICBcIjEwTVwiIFwiMTBNXCIgXCIxME1cIiBcIjEwTVwiIC4uLlxuIn0= -->
+<pre><code>'data.frame':   145863 obs. of  12 variables:
+ $ Race    : chr  &quot;2012 10M&quot; &quot;2012 10M&quot; &quot;2012 10M&quot; &quot;2012 10M&quot; ...
+ $ Name    : chr  &quot;Allan Kiprono (M)&quot; &quot;Lani Kiplagat (M)&quot; &quot;John Korir (M)&quot; &quot;Ian Burrell (M)&quot; ...
+ $ Age     : chr  &quot;22&quot; &quot;23&quot; &quot;36&quot; &quot;27&quot; ...
+ $ Time    : chr  &quot;0:45:15&quot; &quot;0:46:28&quot; &quot;0:47:33&quot; &quot;0:47:34&quot; ...
+ $ Pace    : chr  &quot;4:32&quot; &quot;4:39&quot; &quot;4:45&quot; &quot;4:45&quot; ...
+ $ PiS/TiS : chr  &quot;1/7195&quot; &quot;2/7195&quot; &quot;3/7195&quot; &quot;4/7195&quot; ...
+ $ Division: chr  &quot;M2024&quot; &quot;M2024&quot; &quot;M3539&quot; &quot;M2529&quot; ...
+ $ PiD/TiD : chr  &quot;1/347&quot; &quot;2/347&quot; &quot;1/1093&quot; &quot;1/1457&quot; ...
+ $ Hometown: chr  &quot;Iten, Kenya&quot; &quot;Iten, Kenya&quot; &quot;Iten, Kenya&quot; &quot;Tucson, AZ&quot; ...
+ $ Sex     : chr  &quot;M&quot; &quot;M&quot; &quot;M&quot; &quot;M&quot; ...
+ $ Year    : int  2012 2012 2012 2012 2012 2012 2012 2012 2012 2012 ...
+ $ Event   : chr  &quot;10M&quot; &quot;10M&quot; &quot;10M&quot; &quot;10M&quot; ...</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -228,46 +244,31 @@ run_data$Age &lt;- as.numeric(run_data$Age)</code></pre>
 <p>NAs introduced by coercion, so lets see why..</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVGltZSBDbGVhbiBVcFxuIyBTb21lIHRpbWVzIGhhdmUgKiBhZnRlciB0aW1lIC0gbm90IHN1cmUgd2hhdCBpdCBtZWFucyB5ZXQsIGJ1dCBjcmVhdGluZyBhIGNvbHVtbiB0byBtYXJrZXQgaXRcbnJ1bl9kYXRhJGhhc1RpbWVBc3RlcmlzayA8LSAwXG5ydW5fZGF0YVtncmVwKFwiXFxcXCpcIiwgcnVuX2RhdGEkVGltZSksXSRoYXNUaW1lQXN0ZXJpc2sgPC0gMVxuXG4jIFJlbW92ZSBBc3Rlcmlza1xucnVuX2RhdGEkVGltZTwtZ3N1YihcIlxcXFwqXCIsIFwiXCIsICBydW5fZGF0YSRUaW1lKVxuXG4jIGFkZCB0aW1lIGluIHNlY29uZHNcbiMgcHJvYmxlbSBpcyB0aGUgZm9ybWF0IGlzIGluY29uc2lzdGVudCwgc29tZSBhcmUgaW4gbW06c3MgYW5kIHNvbWUgaW4gaGg6bW06c3NcbiMgMS4gbW06c3Mgb25seVxuIyAyLiBoaDptbTpzcyBvbmx5XG4jIDMuIG1peCBvZiBtbTpzcyBhbmQgaGg6bW06c3NcblxubSA8LSBzdHJfc3BsaXQocnVuX2RhdGEkVGltZSwgXCI6XCIsIHNpbXBsaWZ5ID0gVFJVRSlcblxuaWYgKG5jb2wobSkgPT0gMyl7XG4gIHJ1bl9kYXRhJFRpbWVJbk1pbnV0ZXMgPC0gaWZfZWxzZShtWywzXSA9PSBcIlwiLCBhcy5udW1lcmljKG1bLDFdKSArIGFzLm51bWVyaWMobVssMl0pLzYwLCBcbiAgICAgICAgICBhcy5udW1lcmljKG1bLDFdKSAqIDYwICsgYXMubnVtZXJpYyhtWywyXSkgKyBhcy5udW1lcmljKG1bLDNdKS82MClcbn0gZWxzZSBpZiAobmNvbChtKSA9PSAyKXtcbiAgcnVuX2RhdGEkVGltZUluTWludXRlcyA8LSBhcy5udW1lcmljKG1bLDFdKSAqIDYwICsgYXMubnVtZXJpYyhtWywyXSlcbn1cblxuc3RyKHJ1bl9kYXRhKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVGltZSBDbGVhbiBVcFxuIyBTb21lIHRpbWVzIGhhdmUgKiBhZnRlciB0aW1lIC0gbm90IHN1cmUgd2hhdCBpdCBtZWFucyB5ZXQsIGJ1dCBjcmVhdGluZyBhIGNvbHVtbiB0byBtYXJrZXQgaXRcbnJ1bl9kYXRhJGhhc1RpbWVBc3RlcmlzayA8LSAwXG5ydW5fZGF0YVtncmVwKFwiXFxcXCpcIiwgcnVuX2RhdGEkVGltZSksXSRoYXNUaW1lQXN0ZXJpc2sgPC0gMVxuYGBgIn0= -->
 <pre class="r"><code>## Time Clean Up
 # Some times have * after time - not sure what it means yet, but creating a column to market it
 run_data$hasTimeAsterisk &lt;- 0
-run_data[grep(&quot;\\*&quot;, run_data$Time),]$hasTimeAsterisk &lt;- 1
-
-# Remove Asterisk
-run_data$Time&lt;-gsub(&quot;\\*&quot;, &quot;&quot;,  run_data$Time)
-
-# add time in seconds
-# problem is the format is inconsistent, some are in mm:ss and some in hh:mm:ss
-# 1. mm:ss only
-# 2. hh:mm:ss only
-# 3. mix of mm:ss and hh:mm:ss
-
-m &lt;- str_split(run_data$Time, &quot;:&quot;, simplify = TRUE)
-
-if (ncol(m) == 3){
-  run_data$TimeInMinutes &lt;- if_else(m[,3] == &quot;&quot;, as.numeric(m[,1]) + as.numeric(m[,2])/60, 
-          as.numeric(m[,1]) * 60 + as.numeric(m[,2]) + as.numeric(m[,3])/60)
-} else if (ncol(m) == 2){
-  run_data$TimeInMinutes &lt;- as.numeric(m[,1]) * 60 + as.numeric(m[,2])
-}
-
-str(run_data)</code></pre>
+run_data[grep(&quot;\\*&quot;, run_data$Time),]$hasTimeAsterisk &lt;- 1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYCQ8LS5kYXRhLmZyYW1lYChgKnRtcCpgLCBcImhhc1RpbWVBc3Rlcmlza1wiLCB2YWx1ZSA9IDEpIDogXG4gIHJlcGxhY2VtZW50IGhhcyAxIHJvdywgZGF0YSBoYXMgMFxuIn0= -->
+<pre><code>Error in `$&lt;-.data.frame`(`*tmp*`, &quot;hasTimeAsterisk&quot;, value = 1) : 
+  replacement has 1 row, data has 0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShnZ3Bsb3QyKVxucXBsb3QocnVuX2RhdGEkVGltZUluTWludXRlcylcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r library(ggplot2) qplot(run_data$TimeInMinutes)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxucXBsb3QocnVuX2RhdGEkVGltZUluTWludXRlcylcbmBgYCJ9 -->
-<pre class="r"><code>library(ggplot2)
-qplot(run_data$TimeInMinutes)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXBsb3QodG1wJEFnZUludCwgeT10bXAkVGltZUluTWludXRlcylcbmBgYCJ9 -->
-<pre class="r"><code>qplot(tmp$AgeInt, y=tmp$TimeInMinutes)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucXBsb3QodG1wJEFnZUludCwgeT10bXAkVGltZUluTWludXRlcylcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r qplot(tmp<span class="math inline">\(AgeInt, y=tmp\)</span>TimeInMinutes)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -276,7 +277,7 @@ qplot(run_data$TimeInMinutes)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkJsb3Nzb20gQ2xlYW5pbmciDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHRpZHlyKQ0KbGlicmFyeShzdHJpbmdyKQ0KYGBgDQoNCiMjIEluc3BlY3Rpb24gb2YgRGF0YQ0KYGBge3J9DQpydW5fZGF0YSA8LSByZWFkUkRTKCIuL2RhdGEvZXh0ZXJuYWwvcnVuX2RhdGExOTkwLTIwMTYucmRzIikNCnN0cihydW5fZGF0YSkNCmBgYA0KIyMjIERhdGEgUXVhbGl0eSBPYnNlcnZhdGlvbnMNCiogQWxsIHZhbHVlcyBhcmUgY2hhcmFyYWN0ZXINCiogQWdlIG5lZWRzIHRvIGJlIGNvbnZlcnRlZCB0byBpbnQgdHlwZQ0KKiBUaW1lIGFuZCBQYWNlIG5lZWQgdG8gYmUgY29udmVydGVkIHRvIG1pbnV0ZXMNCg0KIyMjIyBBZ2UgQ29udmVyc2lvbg0KYGBge3J9DQojIENvbnZlcnQgYWdlIHRvIGludA0KIyMgQWdlIENvbnZlcnNpb24gLSBOUiBzdGFuZHMgZm9yIE5vdCBSZWNvcmRlZCwgcmVwbGFjZWQgd2l0aCBOQQ0KcnVuX2RhdGEkQWdlIDwtIGFzLm51bWVyaWMocnVuX2RhdGEkQWdlKQ0KYGBgDQpOQXMgaW50cm9kdWNlZCBieSBjb2VyY2lvbiwgc28gbGV0cyBzZWUgd2h5Li4NCg0KDQoNCmBgYHtyfQ0KIyMgVGltZSBDbGVhbiBVcA0KIyBTb21lIHRpbWVzIGhhdmUgKiBhZnRlciB0aW1lIC0gbm90IHN1cmUgd2hhdCBpdCBtZWFucyB5ZXQsIGJ1dCBjcmVhdGluZyBhIGNvbHVtbiB0byBtYXJrZXQgaXQNCnJ1bl9kYXRhJGhhc1RpbWVBc3RlcmlzayA8LSAwDQpydW5fZGF0YVtncmVwKCJcXCoiLCBydW5fZGF0YSRUaW1lKSxdJGhhc1RpbWVBc3RlcmlzayA8LSAxDQoNCiMgUmVtb3ZlIEFzdGVyaXNrDQpydW5fZGF0YSRUaW1lPC1nc3ViKCJcXCoiLCAiIiwgIHJ1bl9kYXRhJFRpbWUpDQoNCiMgYWRkIHRpbWUgaW4gc2Vjb25kcw0KIyBwcm9ibGVtIGlzIHRoZSBmb3JtYXQgaXMgaW5jb25zaXN0ZW50LCBzb21lIGFyZSBpbiBtbTpzcyBhbmQgc29tZSBpbiBoaDptbTpzcw0KIyAxLiBtbTpzcyBvbmx5DQojIDIuIGhoOm1tOnNzIG9ubHkNCiMgMy4gbWl4IG9mIG1tOnNzIGFuZCBoaDptbTpzcw0KDQptIDwtIHN0cl9zcGxpdChydW5fZGF0YSRUaW1lLCAiOiIsIHNpbXBsaWZ5ID0gVFJVRSkNCg0KaWYgKG5jb2wobSkgPT0gMyl7DQogIHJ1bl9kYXRhJFRpbWVJbk1pbnV0ZXMgPC0gaWZfZWxzZShtWywzXSA9PSAiIiwgYXMubnVtZXJpYyhtWywxXSkgKyBhcy5udW1lcmljKG1bLDJdKS82MCwgDQogICAgICAgICAgYXMubnVtZXJpYyhtWywxXSkgKiA2MCArIGFzLm51bWVyaWMobVssMl0pICsgYXMubnVtZXJpYyhtWywzXSkvNjApDQp9IGVsc2UgaWYgKG5jb2wobSkgPT0gMil7DQogIHJ1bl9kYXRhJFRpbWVJbk1pbnV0ZXMgPC0gYXMubnVtZXJpYyhtWywxXSkgKiA2MCArIGFzLm51bWVyaWMobVssMl0pDQp9DQoNCnN0cihydW5fZGF0YSkNCmBgYA0KDQpgYGB7cn0NCmxpYnJhcnkoZ2dwbG90MikNCnFwbG90KHJ1bl9kYXRhJFRpbWVJbk1pbnV0ZXMpDQpgYGANCg0KYGBge3J9DQpxcGxvdCh0bXAkQWdlSW50LCB5PXRtcCRUaW1lSW5NaW51dGVzKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkJsb3Nzb20gQ2xlYW5pbmciDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHRpZHlyKQ0KbGlicmFyeShzdHJpbmdyKQ0KYGBgDQoNCiMjIEluc3BlY3Rpb24gb2YgRGF0YQ0KYGBge3J9DQpydW5fZGF0YSA8LSByZWFkUkRTKCIuLi9kYXRhL2V4dGVybmFsL3J1bl9kYXRhMTk5OS0yMDEyLnJkcyIpDQpzdHIocnVuX2RhdGEpDQpgYGANCiMjIyBEYXRhIFF1YWxpdHkgT2JzZXJ2YXRpb25zDQoqIEFsbCB2YWx1ZXMgYXJlIGNoYXJhcmFjdGVyDQoqIEFnZSBuZWVkcyB0byBiZSBjb252ZXJ0ZWQgdG8gaW50IHR5cGUNCiogVGltZSBhbmQgUGFjZSBuZWVkIHRvIGJlIGNvbnZlcnRlZCB0byBtaW51dGVzDQoNCiMjIyMgQWdlIENvbnZlcnNpb24NCmBgYHtyfQ0KIyBDb252ZXJ0IGFnZSB0byBpbnQNCiMjIEFnZSBDb252ZXJzaW9uIC0gTlIgc3RhbmRzIGZvciBOb3QgUmVjb3JkZWQsIHJlcGxhY2VkIHdpdGggTkENCnJ1bl9kYXRhJEFnZSA8LSBhcy5udW1lcmljKHJ1bl9kYXRhJEFnZSkNCmBgYA0KTkFzIGludHJvZHVjZWQgYnkgY29lcmNpb24sIHNvIGxldHMgc2VlIHdoeS4uDQoNCg0KDQpgYGB7cn0NCiMjIFRpbWUgQ2xlYW4gVXANCiMgU29tZSB0aW1lcyBoYXZlICogYWZ0ZXIgdGltZSAtIG5vdCBzdXJlIHdoYXQgaXQgbWVhbnMgeWV0LCBidXQgY3JlYXRpbmcgYSBjb2x1bW4gdG8gbWFya2V0IGl0DQpydW5fZGF0YSRoYXNUaW1lQXN0ZXJpc2sgPC0gMA0KcnVuX2RhdGFbZ3JlcCgiXFwqIiwgcnVuX2RhdGEkVGltZSksXSRoYXNUaW1lQXN0ZXJpc2sgPC0gMQ0KDQojIFJlbW92ZSBBc3Rlcmlzaw0KcnVuX2RhdGEkVGltZTwtZ3N1YigiXFwqIiwgIiIsICBydW5fZGF0YSRUaW1lKQ0KDQojIGFkZCB0aW1lIGluIHNlY29uZHMNCiMgcHJvYmxlbSBpcyB0aGUgZm9ybWF0IGlzIGluY29uc2lzdGVudCwgc29tZSBhcmUgaW4gbW06c3MgYW5kIHNvbWUgaW4gaGg6bW06c3MNCiMgMS4gbW06c3Mgb25seQ0KIyAyLiBoaDptbTpzcyBvbmx5DQojIDMuIG1peCBvZiBtbTpzcyBhbmQgaGg6bW06c3MNCg0KbSA8LSBzdHJfc3BsaXQocnVuX2RhdGEkVGltZSwgIjoiLCBzaW1wbGlmeSA9IFRSVUUpDQoNCmlmIChuY29sKG0pID09IDMpew0KICBydW5fZGF0YSRUaW1lSW5NaW51dGVzIDwtIGlmX2Vsc2UobVssM10gPT0gIiIsIGFzLm51bWVyaWMobVssMV0pICsgYXMubnVtZXJpYyhtWywyXSkvNjAsIA0KICAgICAgICAgIGFzLm51bWVyaWMobVssMV0pICogNjAgKyBhcy5udW1lcmljKG1bLDJdKSArIGFzLm51bWVyaWMobVssM10pLzYwKQ0KfSBlbHNlIGlmIChuY29sKG0pID09IDIpew0KICBydW5fZGF0YSRUaW1lSW5NaW51dGVzIDwtIGFzLm51bWVyaWMobVssMV0pICogNjAgKyBhcy5udW1lcmljKG1bLDJdKQ0KfQ0KDQpzdHIocnVuX2RhdGEpDQpgYGANCg0KYGBge3J9DQpsaWJyYXJ5KGdncGxvdDIpDQpxcGxvdChydW5fZGF0YSRUaW1lSW5NaW51dGVzKQ0KYGBgDQoNCmBgYHtyfQ0KcXBsb3QodG1wJEFnZUludCwgeT10bXAkVGltZUluTWludXRlcykNCmBgYA0KDQo=</div>
 
 
 

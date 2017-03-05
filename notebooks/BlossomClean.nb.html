@@ -174,32 +174,18 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmBgYCJ9 -->
-<pre class="r"><code>library(dplyr)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixZHBseXLjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOnN0YXRz46S847iyOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOmJhc2XjpLzjuLI6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
-<pre><code>
-Attaching package: &lt;U+393C&gt;&lt;U+3E31&gt;dplyr&lt;U+393C&gt;&lt;U+3E32&gt;
-
-The following objects are masked from &lt;U+393C&gt;&lt;U+3E31&gt;package:stats&lt;U+393C&gt;&lt;U+3E32&gt;:
-
-    filter, lag
-
-The following objects are masked from &lt;U+393C&gt;&lt;U+3E31&gt;package:base&lt;U+393C&gt;&lt;U+3E32&gt;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzdHJpbmdyKVxuYGBgIn0= -->
-<pre class="r"><code>library(stringr)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoc3RyaW5ncilcbmBgYCJ9 -->
+<pre class="r"><code>library(dplyr)
+library(stringr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09wZW4gU2NyYXBlZCBEYXRhLXNldFxuZGF0YSA9IHJlYWRSRFMoXCIuLi9kYXRhL2V4dGVybmFsL3J1bl9kYXRhMTk5OS0yMDEyLnJkc1wiKVxuaGVhZChkYXRhKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09wZW4gU2NyYXBlZCBEYXRhLXNldFxucnVuX2RhdGEgPSByZWFkUkRTKFwiLi4vZGF0YS9leHRlcm5hbC9ydW5fZGF0YTE5OTktMjAxMi5yZHNcIilcbmhlYWQocnVuX2RhdGEpXG5gYGAifQ== -->
 <pre class="r"><code>#Open Scraped Data-set
-data = readRDS(&quot;../data/external/run_data1999-2012.rds&quot;)
-head(data)</code></pre>
+run_data = readRDS(&quot;../data/external/run_data1999-2012.rds&quot;)
+head(run_data)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTIsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFCcTFVWFcvYU1CUTFDWUdWMGJWYi8wQWVONm1GeEVtZzhFWkxwYlVNVkFFUDNkNjgxQU9yd1VaT1V0cTMvZEQrbG00TzRCQmI2d1BTa0V6T09mZkQ5OTQ0SHZmdllPMnVCZ0F3Z0drYXdEQUZMQnZpcndUSzRDQjdQZ0ZnbmdoUUYrdFlyTXJXOEE0NkxyUmRaL2pmdWJyUHgxNFVJV29QeUpJenl1elB3eS9TOEExUmt1a1JtcUdrWVBod3crWWlnSEhDQytyUnRjaHlrWEtPbzZnZ0g5L2dPTWIyNVJ4ei9selFQdzF3Z2hmSUhxV3pOSFBJTEdwaEJvUTU4aVR5V3JuV3pwR2ZXMTB0UjlYcCtrSFhEUXEwMVlYbkJkcnVlcDVLZllYNmprSURSOXVoN0hjOVdNQ2RIZmFETjNDcmdOdGF2b3JiYkxzZDZWMkJDdk1VNWlzc1VGaHJ3OVRjMWhBNitiQTA0Z1Y1NmNJU3dNNGJibzZZajViVmJYcStmQmtXTEJEUmkrdDB2QUx6Zzl6UjB4ejlqajdhOTljSnBxZjJBTk5udEpkVW02Wmh6SVRZK3lGUDRVWEVWb1RPN0RFTEgwN3QwYVg4S0s2U09XRkxnclN0UzhQOUFBQ0g2MmhRZmZuM1VyS2J1Njl5YjZqZUhoWkZDeHh2MDlmbHNScWpFRXM4RWc0eXZqZkw1U25KNWZMdHpyMTZTeWJOS1puSThmVEpJNGtKb3p0elg1ajcwdnlWTFhEQ1Z0SnNUdkNUVFBvZEl5Nkx2SHJFTk5FcVArQnMxWkRWWjhNemZvUDFyNkszR0VZb2xpMUtzWGFQRXRUNHhiUG1BSGpWUXFwc21ZaWlSWkNSM2F5V0ZsemltbkNVMHF5Uys3TndudEtITTVodHNEWnYxdUgyV1NuZyttWkw0ODgybFNWUE1xWXpRdVU0clFqOXhKRzhOa1hINjRZYlMwN0VQTGFkQ0RWdUpDeEIwcThXc2tncTY5N0E2MSt0Z2NkclJ3WUFBQT09In0= -->
 <div data-pagedtable="false">
@@ -221,10 +207,10 @@ head(data)</code></pre>
 <h4>Age Conversion</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb252ZXJ0IGFnZSB0byBpbnRcbiMjIEFnZSBDb252ZXJzaW9uIC0gTlIgc3RhbmRzIGZvciBOb3QgUmVjb3JkZWQsIHJlcGxhY2VkIHdpdGggTkFcbmRhdGEkQWdlIDwtIGFzLm51bWVyaWMoZGF0YSRBZ2UpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb252ZXJ0IGFnZSB0byBpbnRcbiMjIEFnZSBDb252ZXJzaW9uIC0gTlIgc3RhbmRzIGZvciBOb3QgUmVjb3JkZWQsIHJlcGxhY2VkIHdpdGggTkFcbnJ1bl9kYXRhJEFnZSA8LSBhcy5udW1lcmljKHJ1bl9kYXRhJEFnZSlcbmBgYCJ9 -->
 <pre class="r"><code># Convert age to int
 ## Age Conversion - NR stands for Not Recorded, replaced with NA
-data$Age &lt;- as.numeric(data$Age)</code></pre>
+run_data$Age &lt;- as.numeric(run_data$Age)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiTkFzIGludHJvZHVjZWQgYnkgY29lcmNpb25cbiJ9 -->
 <pre><code>NAs introduced by coercion</code></pre>
@@ -233,26 +219,36 @@ data$Age &lt;- as.numeric(data$Age)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVGltZSBDbGVhbiBVcFxuIyBTb21lIHRpbWVzIGhhdmUgKiBhZnRlciB0aW1lIC0gbm90IHN1cmUgd2hhdCBpdCBtZWFucyB5ZXQsIGJ1dCBjcmVhdGluZyBhIGNvbHVtbiB0byBtYXJrZXQgaXRcbmRhdGEkaGFzVGltZUFzdGVyaXNrIDwtIDBcbiNkYXRhW2dyZXAoXCJcXFxcKlwiLCBkYXRhJFRpbWUpLF0kaGFzVGltZUFzdGVyaXNrIDwtIDFcbiMgUmVtb3ZlIEFzdGVyaXNrXG5kYXRhJFRpbWU8LWdzdWIoXCJcXFxcKlwiLCBcIlwiLCAgZGF0YSRUaW1lKVxuIyBhZGQgdGltZSBpbiBtaW51dGVzXG4jIHByb2JsZW0gaXMgdGhlIGZvcm1hdCBpcyBpbmNvbnNpc3RlbnQsIHNvbWUgYXJlIGluIG1tOnNzIGFuZCBzb21lIGluIGhoOm1tOnNzXG4jIDEuIG1tOnNzIG9ubHlcbiMgMi4gaGg6bW06c3Mgb25seVxuIyAzLiBtaXggb2YgbW06c3MgYW5kIGhoOm1tOnNzXG5tIDwtIHN0cl9zcGxpdChkYXRhJFRpbWUsIFwiOlwiLCBzaW1wbGlmeSA9IFRSVUUpXG5pZiAobmNvbChtKSA9PSAzKXtcbiAgZGF0YSRUaW1lSW5NaW4gPC0gaWZfZWxzZShtWywzXSA9PSBcIlwiLCBhcy5udW1lcmljKG1bLDFdKSArIGFzLm51bWVyaWMobVssMl0pIC8gNjAsIFxuICAgICAgICAgIGFzLm51bWVyaWMobVssMV0pICogNjAgKyBhcy5udW1lcmljKG1bLDJdKSArIGFzLm51bWVyaWMobVssM10pIC8gNjApXG59IGVsc2UgaWYgKG5jb2wobSkgPT0gMil7XG4gIGRhdGEkVGltZUluTWluIDwtIGFzLm51bWVyaWMobVssMV0pICsgYXMubnVtZXJpYyhtWywyXSkgLyA2MFxufVxuaGVhZChkYXRhJFRpbWVJbk1pbilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVGltZSBDbGVhbiBVcFxuIyBTb21lIHRpbWVzIGhhdmUgKiBhZnRlciB0aW1lIC0gbm90IHN1cmUgd2hhdCBpdCBtZWFucyB5ZXQsIGJ1dCBjcmVhdGluZyBhIGNvbHVtbiB0byBtYXJrZXQgaXRcbnJ1bl9kYXRhJGhhc1RpbWVBc3RlcmlzayA8LSAwXG4jIFNvbWUgeWVhcnMgaGF2ZSBhc3RlcmlzayBpbiB0aW1lXG5pZiAoc3VtKGdyZXAoXCJcXFxcKlwiLCBydW5fZGF0YSRUaW1lKSkgPiAwKXtcbiAgcnVuX2RhdGFbZ3JlcChcIlxcXFwqXCIsIHJ1bl9kYXRhJFRpbWUpLF0kaGFzVGltZUFzdGVyaXNrIDwtIDEgIyBBZGRzIGluZGljYXRvcnMgb2YgaGF2aW5nIGFzdGVyaXNrXG59XG4jIFJlbW92ZSBBc3RlcmlzayBmcm9tIHRpbWVcbnJ1bl9kYXRhJFRpbWU8LWdzdWIoXCJcXFxcKlwiLCBcIlwiLCAgcnVuX2RhdGEkVGltZSlcbiMgYWRkIHRpbWUgaW4gbWludXRlc1xuIyBwcm9ibGVtIGlzIHRoZSBmb3JtYXQgaXMgaW5jb25zaXN0ZW50LCBzb21lIGFyZSBpbiBtbTpzcyBhbmQgc29tZSBpbiBoaDptbTpzc1xuIyAxLiBtbTpzcyBvbmx5XG4jIDIuIGhoOm1tOnNzIG9ubHlcbiMgMy4gbWl4IG9mIG1tOnNzIGFuZCBoaDptbTpzc1xuY29udmVydF90aW1lIDwtIGZ1bmN0aW9uKHRpbWVfdmVjdG9yKXtcbiAgbSA8LSBzdHJfc3BsaXQodGltZV92ZWN0b3IsIFwiOlwiLCBzaW1wbGlmeSA9IFRSVUUpXG4gIFxuICBpZiAobmNvbChtKSA9PSAzKXsgIyBJZiBwcm9ibGVtICMyIG9yICMzXG4gICAgdGltZV92ZWN0b3IgPC0gaWZfZWxzZShtWywzXSA9PSBcIlwiLCBhcy5udW1lcmljKG1bLDFdKSArIGFzLm51bWVyaWMobVssMl0pIC8gNjAsIFxuICAgICAgICAgICAgYXMubnVtZXJpYyhtWywxXSkgKiA2MCArIGFzLm51bWVyaWMobVssMl0pICsgYXMubnVtZXJpYyhtWywzXSkgLyA2MClcbiAgfSBlbHNlIGlmIChuY29sKG0pID09IDIpeyAjIElmIHByb2JsZW0gIzFcbiAgICB0aW1lX3ZlY3RvciA8LSBhcy5udW1lcmljKG1bLDFdKSArIGFzLm51bWVyaWMobVssMl0pIC8gNjBcbiAgfVxuICBcbiAgcmV0dXJuKHRpbWVfdmVjdG9yKVxufVxucnVuX2RhdGEkVGltZUluTWluIDwtIGNvbnZlcnRfdGltZShydW5fZGF0YSRUaW1lKVxucnVuX2RhdGEkUGFjZUluTWluIDwtIGNvbnZlcnRfdGltZShydW5fZGF0YSRQYWNlKVxuaGVhZChydW5fZGF0YSRUaW1lSW5NaW4pXG5gYGAifQ== -->
 <pre class="r"><code>## Time Clean Up
 # Some times have * after time - not sure what it means yet, but creating a column to market it
-data$hasTimeAsterisk &lt;- 0
-#data[grep(&quot;\\*&quot;, data$Time),]$hasTimeAsterisk &lt;- 1
-# Remove Asterisk
-data$Time&lt;-gsub(&quot;\\*&quot;, &quot;&quot;,  data$Time)
+run_data$hasTimeAsterisk &lt;- 0
+# Some years have asterisk in time
+if (sum(grep(&quot;\\*&quot;, run_data$Time)) &gt; 0){
+  run_data[grep(&quot;\\*&quot;, run_data$Time),]$hasTimeAsterisk &lt;- 1 # Adds indicators of having asterisk
+}
+# Remove Asterisk from time
+run_data$Time&lt;-gsub(&quot;\\*&quot;, &quot;&quot;,  run_data$Time)
 # add time in minutes
 # problem is the format is inconsistent, some are in mm:ss and some in hh:mm:ss
 # 1. mm:ss only
 # 2. hh:mm:ss only
 # 3. mix of mm:ss and hh:mm:ss
-m &lt;- str_split(data$Time, &quot;:&quot;, simplify = TRUE)
-if (ncol(m) == 3){
-  data$TimeInMin &lt;- if_else(m[,3] == &quot;&quot;, as.numeric(m[,1]) + as.numeric(m[,2]) / 60, 
-          as.numeric(m[,1]) * 60 + as.numeric(m[,2]) + as.numeric(m[,3]) / 60)
-} else if (ncol(m) == 2){
-  data$TimeInMin &lt;- as.numeric(m[,1]) + as.numeric(m[,2]) / 60
+convert_time &lt;- function(time_vector){
+  m &lt;- str_split(time_vector, &quot;:&quot;, simplify = TRUE)
+  
+  if (ncol(m) == 3){ # If problem #2 or #3
+    time_vector &lt;- if_else(m[,3] == &quot;&quot;, as.numeric(m[,1]) + as.numeric(m[,2]) / 60, 
+            as.numeric(m[,1]) * 60 + as.numeric(m[,2]) + as.numeric(m[,3]) / 60)
+  } else if (ncol(m) == 2){ # If problem #1
+    time_vector &lt;- as.numeric(m[,1]) + as.numeric(m[,2]) / 60
+  }
+  
+  return(time_vector)
 }
-head(data$TimeInMin)</code></pre>
+run_data$TimeInMin &lt;- convert_time(run_data$Time)
+run_data$PaceInMin &lt;- convert_time(run_data$Pace)
+head(run_data$TimeInMin)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQ1LjI1MDAwIDQ2LjQ2NjY3IDQ3LjU1MDAwIDQ3LjU2NjY3IDQ3LjY2NjY3IDQ3LjgzMzMzXG4ifQ== -->
 <pre><code>[1] 45.25000 46.46667 47.55000 47.56667 47.66667 47.83333</code></pre>
@@ -261,16 +257,16 @@ head(data$TimeInMin)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlKGRhdGEkUmFjZSlcbmBgYCJ9 -->
-<pre class="r"><code>unique(data$Race)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlKHJ1bl9kYXRhJFJhY2UpXG5gYGAifQ== -->
+<pre class="r"><code>unique(run_data$Race)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjIwMTIgMTBNXCIgXCIyMDExIDEwTVwiIFwiMjAxMCAxME1cIiBcIjIwMDkgMTBNXCIgXCIyMDA4IDEwTVwiIFwiMjAwNyAxME1cIiBcIjIwMDYgMTBNXCIgXCIyMDA1IDEwTVwiXG4gWzldIFwiMjAwNCAxME1cIiBcIjIwMDMgMTBNXCIgXCIyMDAyIDEwTVwiIFwiMjAwMSAxME1cIiBcIjIwMDAgMTBNXCIgXCIxOTk5IDEwTVwiXG4ifQ== -->
-<pre><code> [1] &quot;2012 10M&quot; &quot;2011 10M&quot; &quot;2010 10M&quot; &quot;2009 10M&quot; &quot;2008 10M&quot; &quot;2007 10M&quot; &quot;2006 10M&quot; &quot;2005 10M&quot;
- [9] &quot;2004 10M&quot; &quot;2003 10M&quot; &quot;2002 10M&quot; &quot;2001 10M&quot; &quot;2000 10M&quot; &quot;1999 10M&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjIwMTIgMTBNXCIgXCIyMDExIDEwTVwiIFwiMjAxMCAxME1cIiBcIjIwMDkgMTBNXCIgXCIyMDA4IDEwTVwiIFwiMjAwNyAxME1cIiBcIjIwMDYgMTBNXCIgXCIyMDA1IDEwTVwiIFwiMjAwNCAxME1cIlxuWzEwXSBcIjIwMDMgMTBNXCIgXCIyMDAyIDEwTVwiIFwiMjAwMSAxME1cIiBcIjIwMDAgMTBNXCIgXCIxOTk5IDEwTVwiXG4ifQ== -->
+<pre><code> [1] &quot;2012 10M&quot; &quot;2011 10M&quot; &quot;2010 10M&quot; &quot;2009 10M&quot; &quot;2008 10M&quot; &quot;2007 10M&quot; &quot;2006 10M&quot; &quot;2005 10M&quot; &quot;2004 10M&quot;
+[10] &quot;2003 10M&quot; &quot;2002 10M&quot; &quot;2001 10M&quot; &quot;2000 10M&quot; &quot;1999 10M&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVmFsaWRhdGUgQWdlc1xuc3VtbWFyeShkYXRhJEFnZSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgVmFsaWRhdGUgQWdlc1xuc3VtbWFyeShydW5fZGF0YSRBZ2UpXG5gYGAifQ== -->
 <pre class="r"><code>## Validate Ages
-summary(data$Age)</code></pre>
+summary(run_data$Age)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiICAgTWluLiAxc3QgUXUuICBNZWRpYW4gICAgTWVhbiAzcmQgUXUuICAgIE1heC4gICAgTkEncyBcbiAgIDQuMDAgICAyOC4wMCAgIDM0LjAwICAgMzYuMTMgICA0My4wMCAgIDg5LjAwICAgICAgNDggXG4ifQ== -->
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
@@ -280,10 +276,10 @@ summary(data$Age)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgU2VsZWN0IG1hbGUgZGF0YVxubWFsZV9kYXRhID0gZmlsdGVyKGRhdGEsIFNleCA9PSBcIk1cIilcbm1hbGVfZGF0YSA9IHNlbGVjdChtYWxlX2RhdGEsIE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKVxuaGVhZChtYWxlX2RhdGEpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgU2VsZWN0IG1hbGUgZGF0YVxubWFsZV9kYXRhID0gZmlsdGVyKHJ1bl9kYXRhLCBTZXggPT0gXCJNXCIpICU+JSBcbiAgc2VsZWN0KE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKVxuaGVhZChtYWxlX2RhdGEpXG5gYGAifQ== -->
 <pre class="r"><code>## Select male data
-male_data = filter(data, Sex == &quot;M&quot;)
-male_data = select(male_data, Name, Age, Year, TimeInMin)
+male_data = filter(run_data, Sex == &quot;M&quot;) %&gt;% 
+  select(Name, Age, Year, TimeInMin)
 head(male_data)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN2VTdETUJCMjgxY2xVbW1CRjhnSVF6TXdBRklIMG9LSTJ0SU9DS1F5bXRaTkxWeTdjaElCR3lPOEJUTThBc3lJRjJEakNYaUlncDNZVWhSeDB1Vk8zL20rODNmTytjbGt6NXQ0QUFBRG1LWUJERk9rbGlFK05XQUJWOFk3QU14dGlRcHZDWGRVWWJOTENLVCtFSzg0bzh6ZkdlM3F3aG1rV09JRXhqQXRGVFlHYkNFYUdNZThoRGI3Z3FXWGNZNElLY0d0QVVvUzVCOHZFT2YzSlh4cmlGSzBoUDQ0aXpONVFGWUV0YnhZdUE5eUN3OVU3S25ZVWZGUXhTT2dyWkVMQXZYdi8xM3huajRYZlZIblRkaDdHSDNNcFlYUjU2T3dwekQ2dXBRV1JqOHZ3bDRyRzdRcFhLSkViYzlTb0RVV29Nck5icXhUNndwQnJuTDNBaTlSbjQ0d3JSQzZuTjBHbWxRcU1CNEtOVTUxOHBUQVJFL1dvRGVES1F6bVhNNEhZRjFwcWJOVmloa1ZUWVo4ZEx2U1hPTVZvSmxSZVpOWmU3ckk2RTFidm9DWGx3dHZxT2lVY3FzWWFmd3FLbHRST1lqR21PcE4yQVJlSTZML0hLRTRGeHlzT0thcFZpTFFKRWhaQ3ZVNWI4cUlSbkp0WVAwSDJYSTVlZUlDQUFBPSJ9 -->
@@ -326,13 +322,13 @@ plot(male_data$TimeInMin ~ maleAgeCat)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgU2VsZWN0IGZlbWFsZSBkYXRhXG5mZW1hbGVfZGF0YSA9IGZpbHRlcihkYXRhLCBTZXggPT0gXCJXXCIpXG5mZW1hbGVfZGF0YSA9IHNlbGVjdChmZW1hbGVfZGF0YSwgTmFtZSwgQWdlLCBZZWFyLCBUaW1lSW5NaW4pXG5oZWFkKGZlbWFsZV9kYXRhKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgU2VsZWN0IGZlbWFsZSBkYXRhXG5mZW1hbGVfZGF0YSA9IGZpbHRlcihydW5fZGF0YSwgU2V4ID09IFwiV1wiKSAlPiVcbiAgc2VsZWN0KE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKVxuaGVhZChmZW1hbGVfZGF0YSlcbmBgYCJ9 -->
 <pre class="r"><code>## Select female data
-female_data = filter(data, Sex == &quot;W&quot;)
-female_data = select(female_data, Name, Age, Year, TimeInMin)
+female_data = filter(run_data, Sex == &quot;W&quot;) %&gt;%
+  select(Name, Age, Year, TimeInMin)
 head(female_data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN6VTdDUUJCZTJnS2hDV2pVNkxYeHBBZDYwSk1tbWhLSVVTdkVLSWx3WE1yU3JxeTdwRDlST2Zrc1BvKytnYytnYjRET2x0MmthZnlhNlV5LzZmeDgyOTcxUmtmMnlFWUlHY2cwRFdTWUVGb0czQ3JJUWczcFh4QXl0eVVMdGdsV1U0bXQ2NHd4aWlOblNEa0pzWFB3Y0tnemZjem9IRHQ5OGpnVjJhU1EyUnZUS09PTUpwSFRJd3l1SUNvVzduUkNUa215aE5vdUZZek1pN2t1d3pRbXppV0dxVWxDWGd1NTNmdVVMQ0lNdGM0dFdTNWhMNUZuRVdySmhiMVRsTU03VS81YytUS3ZQS0NaQzBYMXIvOU45Zld0bm9UbkgrZncvSXVaaE9mZmZBQStQWC93RGZqeC9QZDlpZExKVmpsK0lvazZWVXVSMWdCSUZadWRVSWZXbU9CWXhZMGhmU0pYdkU5NXFXRWpGcyt1YmlvVkdHOXJOYlh5NUlEaFJFL1dwRDNGS1habnNaeVAwS3BVVWhlTGxBb09SWWI4R2FxbDRrcGNJall5TGplWnRnUDQ0UFAyaVJ5UXA5ZldWTDVXaUszMVNPTlh0YXFxVmpYQ1EvakY5TzRNVHdoVER5MVFuQXQyRnpIbHFWWUNiT0ttSXNYNlBUc1FURE81TnJUNkE5SWRpRnY2QWdBQSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUJtMVN6VXJEUUJEZUptbExBNjJpb3RmZ1NROE5xRGRCU1drUk5iYUlGbXlQMjNTYnJGMTNTMzVRZS9KWmZCNTlBNTlCMzZBNm0rNUNDSDVoTXBOdk1qL2ZKbmU5MGJFOXNoRkNCakpOQXhrbWhKWUJ0d3F5VUVQNkY0VE1iY21DYllMVlZHTHJPbU9NNHNnWlVrNUM3Qnc4SE9wTUh6TTZ4MDZmUEU1Rk5pbGs5c1kweWppalNlVDBDSU1yaUlxRk81MlFVNUlzb2JaTEJTUHpZcTdMTUkySmM0bGhhcEtRMTBKdTl6NGxpd2hEclhOTGxrdllTK1JaaEZweVllOFU1ZkRPbEQ5WHZzd3JEMmptUWxIOTYzOVRmWDJySitINUp6azgvMkltNGZrM0g0QlB6eDk4QTM0OC8zMWZvblN5Vlk2ZlNLSk8xVktrTlFCU3hXWW4xS0UxSmpoV2NXTkluOGdWNzFOZWF0aUl4Yk9ybTBvRnh0dGFUYTA4T1dBNDBaTTFhVTl4aXQxWkxPY2p0Q3FWMU1VaXBZSkRrU0YvaG1xcHVCS1hpSTJNeTAybTdRQSsrTHg5SkFmazZiVTFsYThWWW1zOTB2aFZyYXFxVlkzd0VINHh2VHZERThMVVF3c1U1NExkUlV4NXFwVUFtN2lwU0xGK3p3NEUwMHl1RGEzK0FFQUFtL2Y2QWdBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Year"],"name":[3],"type":["int"],"align":["right"]},{"label":["TimeInMin"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Julliah Tinega (W)","2":"26","3":"2012","4":"54.03333","_rn_":"1"},{"1":"Malika Mejdoub (W)","2":"29","3":"2012","4":"54.40000","_rn_":"2"},{"1":"Yihunlish Delelecha (W)","2":"30","3":"2012","4":"54.55000","_rn_":"3"},{"1":"Agnieszka Ciolek (W)","2":"26","3":"2012","4":"54.60000","_rn_":"4"},{"1":"Claire Hallissey (W)","2":"29","3":"2012","4":"54.61667","_rn_":"5"},{"1":"Stephanie Pezzullo (W)","2":"29","3":"2012","4":"55.26667","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -382,7 +378,7 @@ table(femaleAgeCat)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkJsb3Nzb20gQ2xlYW5pbmciDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHN0cmluZ3IpDQpgYGANCg0KDQpgYGB7cn0NCiNPcGVuIFNjcmFwZWQgRGF0YS1zZXQNCmRhdGEgPSByZWFkUkRTKCIuLi9kYXRhL2V4dGVybmFsL3J1bl9kYXRhMTk5OS0yMDEyLnJkcyIpDQpoZWFkKGRhdGEpDQpgYGANCg0KIyMjIERhdGEgUXVhbGl0eSBPYnNlcnZhdGlvbnMNCiogQWxsIHZhbHVlcyBhcmUgY2hhcmFyYWN0ZXINCiogQWdlIG5lZWRzIHRvIGJlIGNvbnZlcnRlZCB0byBpbnQgdHlwZQ0KKiBUaW1lIGFuZCBQYWNlIG5lZWQgdG8gYmUgY29udmVydGVkIHRvIG1pbnV0ZXMNCg0KIyMjIyBBZ2UgQ29udmVyc2lvbg0KYGBge3J9DQojIENvbnZlcnQgYWdlIHRvIGludA0KIyMgQWdlIENvbnZlcnNpb24gLSBOUiBzdGFuZHMgZm9yIE5vdCBSZWNvcmRlZCwgcmVwbGFjZWQgd2l0aCBOQQ0KZGF0YSRBZ2UgPC0gYXMubnVtZXJpYyhkYXRhJEFnZSkNCmBgYA0KDQpgYGB7cn0NCiMjIFRpbWUgQ2xlYW4gVXANCiMgU29tZSB0aW1lcyBoYXZlICogYWZ0ZXIgdGltZSAtIG5vdCBzdXJlIHdoYXQgaXQgbWVhbnMgeWV0LCBidXQgY3JlYXRpbmcgYSBjb2x1bW4gdG8gbWFya2V0IGl0DQpkYXRhJGhhc1RpbWVBc3RlcmlzayA8LSAwDQojZGF0YVtncmVwKCJcXCoiLCBkYXRhJFRpbWUpLF0kaGFzVGltZUFzdGVyaXNrIDwtIDENCg0KIyBSZW1vdmUgQXN0ZXJpc2sNCmRhdGEkVGltZTwtZ3N1YigiXFwqIiwgIiIsICBkYXRhJFRpbWUpDQoNCiMgYWRkIHRpbWUgaW4gbWludXRlcw0KIyBwcm9ibGVtIGlzIHRoZSBmb3JtYXQgaXMgaW5jb25zaXN0ZW50LCBzb21lIGFyZSBpbiBtbTpzcyBhbmQgc29tZSBpbiBoaDptbTpzcw0KIyAxLiBtbTpzcyBvbmx5DQojIDIuIGhoOm1tOnNzIG9ubHkNCiMgMy4gbWl4IG9mIG1tOnNzIGFuZCBoaDptbTpzcw0KDQptIDwtIHN0cl9zcGxpdChkYXRhJFRpbWUsICI6Iiwgc2ltcGxpZnkgPSBUUlVFKQ0KDQppZiAobmNvbChtKSA9PSAzKXsNCiAgZGF0YSRUaW1lSW5NaW4gPC0gaWZfZWxzZShtWywzXSA9PSAiIiwgYXMubnVtZXJpYyhtWywxXSkgKyBhcy5udW1lcmljKG1bLDJdKSAvIDYwLCANCiAgICAgICAgICBhcy5udW1lcmljKG1bLDFdKSAqIDYwICsgYXMubnVtZXJpYyhtWywyXSkgKyBhcy5udW1lcmljKG1bLDNdKSAvIDYwKQ0KfSBlbHNlIGlmIChuY29sKG0pID09IDIpew0KICBkYXRhJFRpbWVJbk1pbiA8LSBhcy5udW1lcmljKG1bLDFdKSArIGFzLm51bWVyaWMobVssMl0pIC8gNjANCn0NCg0KaGVhZChkYXRhJFRpbWVJbk1pbikNCmBgYA0KDQpgYGB7cn0NCnVuaXF1ZShkYXRhJFJhY2UpDQojIyBWYWxpZGF0ZSBBZ2VzDQpzdW1tYXJ5KGRhdGEkQWdlKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgU2VsZWN0IG1hbGUgZGF0YQ0KbWFsZV9kYXRhID0gZmlsdGVyKGRhdGEsIFNleCA9PSAiTSIpDQoNCm1hbGVfZGF0YSA9IHNlbGVjdChtYWxlX2RhdGEsIE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKQ0KDQpoZWFkKG1hbGVfZGF0YSkNCnBsb3QobWFsZV9kYXRhJEFnZX5tYWxlX2RhdGEkVGltZUluTWluKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgTWFsZSBib3hwbG90cywgYWdlIGJ5IHllYXINCmJveHBsb3QoYXMubnVtZXJpYyhBZ2UpflllYXIsIGRhdGE9bWFsZV9kYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgTWFsZSBib3hwbG90cywgdGltZSBieSBhZ2UgZ3JvdXANCm1hbGVBZ2VDYXQgPSBjdXQoYXMubnVtZXJpYyhtYWxlX2RhdGEkQWdlKSwgYnJlYWtzPSBjKHNlcSgxNSwgNzUsIDEwKSwgOTApKQ0KcGxvdChtYWxlX2RhdGEkVGltZUluTWluIH4gbWFsZUFnZUNhdCkNCmBgYA0KDQpgYGB7cn0NCiMjIFNlbGVjdCBmZW1hbGUgZGF0YQ0KZmVtYWxlX2RhdGEgPSBmaWx0ZXIoZGF0YSwgU2V4ID09ICJXIikNCg0KZmVtYWxlX2RhdGEgPSBzZWxlY3QoZmVtYWxlX2RhdGEsIE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKQ0KDQpoZWFkKGZlbWFsZV9kYXRhKQ0KcGxvdChmZW1hbGVfZGF0YSRBZ2V+ZmVtYWxlX2RhdGEkVGltZUluTWluKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgRmVtYWxlIGJveHBsb3RzLCBhZ2UgYnkgeWVhcg0KYm94cGxvdChhcy5udW1lcmljKEFnZSl+WWVhciwgZGF0YT1mZW1hbGVfZGF0YSkNCmBgYA0KDQpgYGB7cn0NCiMjIEZlbWFsZSBib3hwbG90cywgdGltZSBieSBhZ2UgZ3JvdXANCmZlbWFsZUFnZUNhdCA9IGN1dChhcy5udW1lcmljKGZlbWFsZV9kYXRhJEFnZSksIGJyZWFrcz0gYyhzZXEoMTUsIDc1LCAxMCksIDkwKSkNCnRhYmxlKGZlbWFsZUFnZUNhdCkNCnBsb3QoZmVtYWxlX2RhdGEkVGltZUluTWluIH4gZmVtYWxlQWdlQ2F0KQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkJsb3Nzb20gQ2xlYW5pbmciDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0NCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHN0cmluZ3IpDQpgYGANCg0KDQpgYGB7cn0NCiNPcGVuIFNjcmFwZWQgRGF0YS1zZXQNCnJ1bl9kYXRhID0gcmVhZFJEUygiLi4vZGF0YS9leHRlcm5hbC9ydW5fZGF0YTE5OTktMjAxMi5yZHMiKQ0KaGVhZChydW5fZGF0YSkNCmBgYA0KDQojIyMgRGF0YSBRdWFsaXR5IE9ic2VydmF0aW9ucw0KKiBBbGwgdmFsdWVzIGFyZSBjaGFyYXJhY3Rlcg0KKiBBZ2UgbmVlZHMgdG8gYmUgY29udmVydGVkIHRvIGludCB0eXBlDQoqIFRpbWUgYW5kIFBhY2UgbmVlZCB0byBiZSBjb252ZXJ0ZWQgdG8gbWludXRlcw0KDQojIyMjIEFnZSBDb252ZXJzaW9uDQpgYGB7cn0NCiMgQ29udmVydCBhZ2UgdG8gaW50DQojIyBBZ2UgQ29udmVyc2lvbiAtIE5SIHN0YW5kcyBmb3IgTm90IFJlY29yZGVkLCByZXBsYWNlZCB3aXRoIE5BDQpydW5fZGF0YSRBZ2UgPC0gYXMubnVtZXJpYyhydW5fZGF0YSRBZ2UpDQpgYGANCg0KYGBge3J9DQojIyBUaW1lIENsZWFuIFVwDQojIFNvbWUgdGltZXMgaGF2ZSAqIGFmdGVyIHRpbWUgLSBub3Qgc3VyZSB3aGF0IGl0IG1lYW5zIHlldCwgYnV0IGNyZWF0aW5nIGEgY29sdW1uIHRvIG1hcmtldCBpdA0KcnVuX2RhdGEkaGFzVGltZUFzdGVyaXNrIDwtIDANCg0KIyBTb21lIHllYXJzIGhhdmUgYXN0ZXJpc2sgaW4gdGltZQ0KaWYgKHN1bShncmVwKCJcXCoiLCBydW5fZGF0YSRUaW1lKSkgPiAwKXsNCiAgcnVuX2RhdGFbZ3JlcCgiXFwqIiwgcnVuX2RhdGEkVGltZSksXSRoYXNUaW1lQXN0ZXJpc2sgPC0gMSAjIEFkZHMgaW5kaWNhdG9ycyBvZiBoYXZpbmcgYXN0ZXJpc2sNCn0NCg0KIyBSZW1vdmUgQXN0ZXJpc2sgZnJvbSB0aW1lDQpydW5fZGF0YSRUaW1lPC1nc3ViKCJcXCoiLCAiIiwgIHJ1bl9kYXRhJFRpbWUpDQoNCiMgYWRkIHRpbWUgaW4gbWludXRlcw0KIyBwcm9ibGVtIGlzIHRoZSBmb3JtYXQgaXMgaW5jb25zaXN0ZW50LCBzb21lIGFyZSBpbiBtbTpzcyBhbmQgc29tZSBpbiBoaDptbTpzcw0KIyAxLiBtbTpzcyBvbmx5DQojIDIuIGhoOm1tOnNzIG9ubHkNCiMgMy4gbWl4IG9mIG1tOnNzIGFuZCBoaDptbTpzcw0KDQpjb252ZXJ0X3RpbWUgPC0gZnVuY3Rpb24odGltZV92ZWN0b3Ipew0KICBtIDwtIHN0cl9zcGxpdCh0aW1lX3ZlY3RvciwgIjoiLCBzaW1wbGlmeSA9IFRSVUUpDQogIA0KICBpZiAobmNvbChtKSA9PSAzKXsgIyBJZiBwcm9ibGVtICMyIG9yICMzDQogICAgdGltZV92ZWN0b3IgPC0gaWZfZWxzZShtWywzXSA9PSAiIiwgYXMubnVtZXJpYyhtWywxXSkgKyBhcy5udW1lcmljKG1bLDJdKSAvIDYwLCANCiAgICAgICAgICAgIGFzLm51bWVyaWMobVssMV0pICogNjAgKyBhcy5udW1lcmljKG1bLDJdKSArIGFzLm51bWVyaWMobVssM10pIC8gNjApDQogIH0gZWxzZSBpZiAobmNvbChtKSA9PSAyKXsgIyBJZiBwcm9ibGVtICMxDQogICAgdGltZV92ZWN0b3IgPC0gYXMubnVtZXJpYyhtWywxXSkgKyBhcy5udW1lcmljKG1bLDJdKSAvIDYwDQogIH0NCiAgDQogIHJldHVybih0aW1lX3ZlY3RvcikNCn0NCg0KcnVuX2RhdGEkVGltZUluTWluIDwtIGNvbnZlcnRfdGltZShydW5fZGF0YSRUaW1lKQ0KcnVuX2RhdGEkUGFjZUluTWluIDwtIGNvbnZlcnRfdGltZShydW5fZGF0YSRQYWNlKQ0KDQpoZWFkKHJ1bl9kYXRhJFRpbWVJbk1pbikNCmBgYA0KDQpgYGB7cn0NCnVuaXF1ZShydW5fZGF0YSRSYWNlKQ0KIyMgVmFsaWRhdGUgQWdlcw0Kc3VtbWFyeShydW5fZGF0YSRBZ2UpDQpgYGANCg0KYGBge3J9DQojIyBTZWxlY3QgbWFsZSBkYXRhDQptYWxlX2RhdGEgPSBmaWx0ZXIocnVuX2RhdGEsIFNleCA9PSAiTSIpICU+JSANCiAgc2VsZWN0KE5hbWUsIEFnZSwgWWVhciwgVGltZUluTWluKQ0KDQpoZWFkKG1hbGVfZGF0YSkNCnBsb3QobWFsZV9kYXRhJEFnZX5tYWxlX2RhdGEkVGltZUluTWluKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgTWFsZSBib3hwbG90cywgYWdlIGJ5IHllYXINCmJveHBsb3QoYXMubnVtZXJpYyhBZ2UpflllYXIsIGRhdGE9bWFsZV9kYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgTWFsZSBib3hwbG90cywgdGltZSBieSBhZ2UgZ3JvdXANCm1hbGVBZ2VDYXQgPSBjdXQoYXMubnVtZXJpYyhtYWxlX2RhdGEkQWdlKSwgYnJlYWtzPSBjKHNlcSgxNSwgNzUsIDEwKSwgOTApKQ0KcGxvdChtYWxlX2RhdGEkVGltZUluTWluIH4gbWFsZUFnZUNhdCkNCmBgYA0KDQpgYGB7cn0NCiMjIFNlbGVjdCBmZW1hbGUgZGF0YQ0KZmVtYWxlX2RhdGEgPSBmaWx0ZXIocnVuX2RhdGEsIFNleCA9PSAiVyIpICU+JQ0KICBzZWxlY3QoTmFtZSwgQWdlLCBZZWFyLCBUaW1lSW5NaW4pDQoNCmhlYWQoZmVtYWxlX2RhdGEpDQpwbG90KGZlbWFsZV9kYXRhJEFnZX5mZW1hbGVfZGF0YSRUaW1lSW5NaW4pDQpgYGANCg0KYGBge3J9DQojIyBGZW1hbGUgYm94cGxvdHMsIGFnZSBieSB5ZWFyDQpib3hwbG90KGFzLm51bWVyaWMoQWdlKX5ZZWFyLCBkYXRhPWZlbWFsZV9kYXRhKQ0KYGBgDQoNCmBgYHtyfQ0KIyMgRmVtYWxlIGJveHBsb3RzLCB0aW1lIGJ5IGFnZSBncm91cA0KZmVtYWxlQWdlQ2F0ID0gY3V0KGFzLm51bWVyaWMoZmVtYWxlX2RhdGEkQWdlKSwgYnJlYWtzPSBjKHNlcSgxNSwgNzUsIDEwKSwgOTApKQ0KdGFibGUoZmVtYWxlQWdlQ2F0KQ0KcGxvdChmZW1hbGVfZGF0YSRUaW1lSW5NaW4gfiBmZW1hbGVBZ2VDYXQpDQpgYGANCg0K</div>
 
 
 

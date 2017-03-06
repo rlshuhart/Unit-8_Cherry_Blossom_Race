@@ -67,7 +67,7 @@ get_web_data <- function(division, gender, event, year){
 }
 
 save_the_blossums <- function(run_data, file_name){
-  saveRDS(run_data, paste("./data/external/", file_name,sep=""))
+  saveRDS(run_data, paste("../data/external/", file_name,sep=""))
 }
 
 

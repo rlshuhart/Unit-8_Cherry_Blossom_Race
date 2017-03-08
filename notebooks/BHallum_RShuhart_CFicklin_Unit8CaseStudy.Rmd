@@ -9,23 +9,44 @@ output:
 subtitle: MSDS 7333-401
 ---
 
-[Temporary]
+<font color = "green">
+### [Temporary]
 Q.10 We have seen that the 1999 runners were typically older than the 2012 runners.
 Compare the age distribution of the runners across all 14 years of the races. Use quantile–
 quantile plots, boxplots, and density curves to make your comparisons. How do the
 distributions change over the years? Was it a gradual change?
+
+#### Other idea to possibly explore:
+* Did the same drop in the age distibution occur for both male and female?
+
+* Did the younger generation participation grow faster than older groups?
+    * Plot median age by generation
+</font>
+
 
 
 ```{r}
 library(dplyr)
 library(ggplot2)
 
+find_gen <- function(Age, Year) {
+  birth_year <- Year - Age
+  if_else(birth_year >= 1996, "Gen Z",
+          if_else(birth_year >= 1997, "Gen Y",
+                  if_else(birth_year >= 1965, "Gen X",
+                          if_else(birth_year >= 1946, "Boomer",
+                                  if_else(birth_year < 1946, "Silent", "Unknown")))))
+  
+  #http://genhq.com/faq-info-about-generations/
+}
+
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds") %>%
   filter(Year %in% c(1999:2012)) %>%
   select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
          Event = as.factor(Event),
-         Division = as.factor(Division))
+         Division = as.factor(Division),
+         Generation = ordered(find_gen(Age, Year), levels= c("Unknown", "Silent", "Boomer", "Gen X", "Gen Y", "Gen Z")))
 
 str(run_data)
 ```
@@ -42,5 +63,49 @@ str(run_data)
 
 # Results 
 
+## Distribution of Age Over Years 1999 to 2012
+```{r}
+median_age <- group_by(run_data, Year) %>%
+  summarize(Med_Age = median(Age, na.rm = TRUE))
+
+ggplot(median_age, aes(x=Year, y=Med_Age)) + geom_line()
+
+## Density Bar Plot
+```
+
+```{r}
+ggplot(run_data, aes(Year, fill=Generation)) + geom_bar(position="fill")
+```
 
 # Conclusion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

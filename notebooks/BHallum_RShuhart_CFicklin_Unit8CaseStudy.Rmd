@@ -46,7 +46,11 @@ run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds") %>%
   mutate(Sex = as.factor(Sex),
          Event = as.factor(Event),
          Division = as.factor(Division),
-         Generation = ordered(find_gen(Age, Year), levels= c("Unknown", "Silent", "Boomer", "Gen X", "Gen Y", "Gen Z")))
+         Generation = ordered(find_gen(Age, Year), 
+                              levels= c("Unknown", "Silent", "Boomer", 
+                                        "Gen X", "Gen Y", "Gen Z")),
+         AgeCat = cut(Age, breaks= c(seq(15, 75, 10), 90)))
+
 
 str(run_data)
 ```
@@ -76,6 +80,19 @@ ggplot(median_age, aes(x=Year, y=Med_Age)) + geom_line()
 ```{r}
 ggplot(run_data, aes(Year, fill=Generation)) + geom_bar(position="fill")
 ```
+
+```{r}
+ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill")
+```
+
+```{r}
+ggplot(run_data, aes(Year, Age)) + geom_point() +
+  geom_smooth(method="loess", span=.5 , aes(color="Loess .9"), se=FALSE) +
+  theme(legend.position = "bottom") +
+  labs(title="LOESS Model of 3 Spans") +
+  theme_bw()
+```
+
 
 # Conclusion
 

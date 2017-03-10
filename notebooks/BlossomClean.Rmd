@@ -66,7 +66,7 @@ str(run_data)
 ```
 
 ```{r}
-unique(run_data$Race)
+unique(run_data$Year)
 ## Validate Ages
 summary(run_data$Age)
 ```
@@ -92,6 +92,59 @@ plot(male_data$TimeInMin ~ maleAgeCat)
 ```
 
 ```{r}
+## Male groups by year
+male_data_1999 = filter(male_data, Year == 1999)
+male_data_2000 = filter(male_data, Year == 2000)
+male_data_2001 = filter(male_data, Year == 2001)
+male_data_2002 = filter(male_data, Year == 2002)
+male_data_2003 = filter(male_data, Year == 2003)
+male_data_2004 = filter(male_data, Year == 2004)
+male_data_2005 = filter(male_data, Year == 2005)
+male_data_2006 = filter(male_data, Year == 2006)
+male_data_2007 = filter(male_data, Year == 2007)
+male_data_2008 = filter(male_data, Year == 2008)
+male_data_2009 = filter(male_data, Year == 2009)
+male_data_2010 = filter(male_data, Year == 2010)
+male_data_2011 = filter(male_data, Year == 2011)
+male_data_2012 = filter(male_data, Year == 2012)
+```
+
+```{r}
+plot(density(male_data_1999$Age, na.rm = TRUE), ylim=c(0,0.05), col="red", main="Male Age Dist")
+lines(density(male_data_2000$Age, na.rm = TRUE), col="green")
+lines(density(male_data_2001$Age, na.rm = TRUE), col="blue")
+lines(density(male_data_2002$Age, na.rm = TRUE), col="purple")
+lines(density(male_data_2003$Age, na.rm = TRUE), col="yellow")
+lines(density(male_data_2004$Age, na.rm = TRUE), col="orange")
+lines(density(male_data_2005$Age, na.rm = TRUE), col="blue")
+lines(density(male_data_2006$Age, na.rm = TRUE), col="pink")
+lines(density(male_data_2007$Age, na.rm = TRUE), col="black")
+lines(density(male_data_2008$Age, na.rm = TRUE), col="brown")
+lines(density(male_data_2009$Age, na.rm = TRUE), col="tan")
+lines(density(male_data_2010$Age, na.rm = TRUE), col="red")
+lines(density(male_data_2011$Age, na.rm = TRUE), col="green")
+lines(density(male_data_2012$Age, na.rm = TRUE), col="blue")
+```
+```{r}
+plot(density(male_data_2009$Age, na.rm = TRUE), ylim=c(0,0.05), col="purple", main="Male Age Dist '09-'12")
+lines(density(male_data_2010$Age, na.rm = TRUE), col="red")
+lines(density(male_data_2011$Age, na.rm = TRUE), col="green")
+lines(density(male_data_2012$Age, na.rm = TRUE), col="blue")
+
+legend("topleft", col=c("purple", "red", "green", "blue"), lty=1:2, legend=c("2009", "2010", "2011", "2012"))
+```
+
+```{r}
+plot(density(male_data_1999$Age, na.rm = TRUE), ylim=c(0,0.05), col="red", main="Male Age Dist '99-'02")
+lines(density(male_data_2000$Age, na.rm = TRUE), col="green")
+lines(density(male_data_2001$Age, na.rm = TRUE), col="blue")
+lines(density(male_data_2002$Age, na.rm = TRUE), col="purple")
+
+legend("topleft", col=c("red", "green", "blue", "purple"), lty=1:2, legend=c("1999", "2000", "2001", "2002"))
+```
+
+
+```{r}
 ## Select female data
 female_data = filter(run_data, Sex == "W") %>%
   select(Name, Age, Year, TimeInMin)
@@ -111,4 +164,54 @@ femaleAgeCat = cut(as.numeric(female_data$Age), breaks= c(seq(15, 75, 10), 90))
 table(femaleAgeCat)
 plot(female_data$TimeInMin ~ femaleAgeCat)
 ```
+```{r}
+## Male groups by year
+female_data_1999 = filter(female_data, Year == 1999)
+female_data_2000 = filter(female_data, Year == 2000)
+female_data_2001 = filter(female_data, Year == 2001)
+female_data_2002 = filter(female_data, Year == 2002)
+female_data_2003 = filter(female_data, Year == 2003)
+female_data_2004 = filter(female_data, Year == 2004)
+female_data_2005 = filter(female_data, Year == 2005)
+female_data_2006 = filter(female_data, Year == 2006)
+female_data_2007 = filter(female_data, Year == 2007)
+female_data_2008 = filter(female_data, Year == 2008)
+female_data_2009 = filter(female_data, Year == 2009)
+female_data_2010 = filter(female_data, Year == 2010)
+female_data_2011 = filter(female_data, Year == 2011)
+female_data_2012 = filter(female_data, Year == 2012)
+```
 
+```{r}
+plot(density(female_data_1999$Age, na.rm = TRUE), ylim=c(0,0.07), col="red", main="Female Age Dist")
+lines(density(female_data_2000$Age, na.rm = TRUE), col="green")
+lines(density(female_data_2001$Age, na.rm = TRUE), col="blue")
+lines(density(female_data_2002$Age, na.rm = TRUE), col="purple")
+lines(density(female_data_2003$Age, na.rm = TRUE), col="yellow")
+lines(density(female_data_2004$Age, na.rm = TRUE), col="orange")
+lines(density(female_data_2005$Age, na.rm = TRUE), col="blue")
+lines(density(female_data_2006$Age, na.rm = TRUE), col="pink")
+lines(density(female_data_2007$Age, na.rm = TRUE), col="black")
+lines(density(female_data_2008$Age, na.rm = TRUE), col="brown")
+lines(density(female_data_2009$Age, na.rm = TRUE), col="tan")
+lines(density(female_data_2010$Age, na.rm = TRUE), col="red")
+lines(density(female_data_2011$Age, na.rm = TRUE), col="green")
+lines(density(female_data_2012$Age, na.rm = TRUE), col="blue")
+```
+```{r}
+plot(density(female_data_2009$Age, na.rm = TRUE), ylim=c(0,0.07), col="purple", main="Female Age Dist '09-'12")
+lines(density(female_data_2010$Age, na.rm = TRUE), col="red")
+lines(density(female_data_2011$Age, na.rm = TRUE), col="green")
+lines(density(female_data_2012$Age, na.rm = TRUE), col="blue")
+
+legend("topleft", col=c("purple", "red", "green", "blue"), lty=1:2, legend=c("2009", "2010", "2011", "2012"))
+```
+
+```{r}
+plot(density(female_data_1999$Age, na.rm = TRUE), ylim=c(0,0.07), col="red", main="Female Age Dist '99-'02")
+lines(density(female_data_2000$Age, na.rm = TRUE), col="green")
+lines(density(female_data_2001$Age, na.rm = TRUE), col="blue")
+lines(density(female_data_2002$Age, na.rm = TRUE), col="purple")
+
+legend("topleft", col=c("red", "green", "blue", "purple"), lty=1:2, legend=c("1999", "2000", "2001", "2002"))
+```

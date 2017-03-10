@@ -142,6 +142,16 @@ lines(density(male_data_2002$Age, na.rm = TRUE), col="purple")
 
 legend("topleft", col=c("red", "green", "blue", "purple"), lty=1:2, legend=c("1999", "2000", "2001", "2002"))
 ```
+```{r}
+qqnorm(male_data_1999$Age, ylab="Age")
+qqline(male_data_1999$Age)
+qqplot(male_data_1999$Age, male_data_1999$TimeInMin, main="Age vs Time (Min)")
+```
+```{r}
+qqnorm(male_data_2012$Age, ylab="Age")
+qqline(male_data_2012$Age)
+qqplot(male_data_2012$Age, male_data_2012$TimeInMin, main="Age vs Time (Min)")
+```
 
 
 ```{r}
@@ -215,3 +225,14 @@ lines(density(female_data_2002$Age, na.rm = TRUE), col="purple")
 
 legend("topleft", col=c("red", "green", "blue", "purple"), lty=1:2, legend=c("1999", "2000", "2001", "2002"))
 ```
+```{r}
+qqnorm(female_data_1999$Age, ylab="Age")
+qqline(female_data_1999$Age)
+qqplot(female_data_1999$Age, female_data_1999$TimeInMin, main="Age vs Time (Min)")
+```
+```{r}
+qqnorm(female_data_2012$Age, ylab="Age")
+qqline(female_data_2012$Age)
+qqplot(female_data_2012$Age, female_data_2012$TimeInMin, main="Age vs Time (Min)")
+```
+

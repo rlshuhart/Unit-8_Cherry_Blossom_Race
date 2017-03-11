@@ -25,10 +25,14 @@ distributions change over the years? Was it a gradual change?
 
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
+```
 
+```{r}
+# This functions categorizes the age of runners in to defined birthed generations
+# Generation definition source: http://genhq.com/faq-info-about-generations/
 find_gen <- function(Age, Year) {
   birth_year <- Year - Age
   if_else(birth_year >= 1996, "Gen Z",
@@ -36,10 +40,9 @@ find_gen <- function(Age, Year) {
                   if_else(birth_year >= 1965, "Gen X",
                           if_else(birth_year >= 1946, "Boomer",
                                   if_else(birth_year < 1946, "Silent", "Unknown")))))
-  
-  #http://genhq.com/faq-info-about-generations/
 }
 
+# Select 1999-2012 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds") %>%
   filter(Year %in% c(1999:2012)) %>%
   select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
@@ -72,27 +75,71 @@ str(run_data)
 median_age <- group_by(run_data, Year) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
 
-ggplot(median_age, aes(x=Year, y=Med_Age)) + geom_line()
-
-## Density Bar Plot
+ggplot(median_age, aes(x=Year, y=Med_Age)) + 
+  geom_line() + 
+  labs(title=paste("Median Age Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
 ```
 
 ```{r}
-ggplot(run_data, aes(Year, fill=Generation)) + geom_bar(position="fill")
+ggplot(run_data, aes(Year, fill=Generation, color=Generation)) + 
+  geom_bar(position="fill") 
+  
 ```
 
 ```{r}
 ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill")
 ```
 
-```{r}
-ggplot(run_data, aes(Year, Age)) + geom_point() +
-  geom_smooth(method="loess", span=.5 , aes(color="Loess .9"), se=FALSE) +
-  theme(legend.position = "bottom") +
-  labs(title="LOESS Model of 3 Spans") +
-  theme_bw()
+```{r, fig.height=8, fig.width=8, warning=FALSE}
+require(gridExtra)
+male_data = filter(run_data, Sex == "M")
+fem_data = filter(run_data, Sex == "W")
+
+m_plot <- ggplot(male_data, aes(x=TimeInMin, y=Age))  +
+  geom_point() + 
+  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
+  scale_fill_distiller(palette = "Spectral") +
+  xlim(40, 180) +
+  ylim(0,100)
+
+f_plot <- ggplot(fem_data, aes(x=TimeInMin, y=Age))  +
+  geom_point() + 
+  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
+  scale_fill_distiller(palette = "Spectral") +
+  xlim(40, 180)+
+  ylim(0,100)
+
+grid.arrange(m_plot, f_plot, nrow=2)
 ```
 
+
+```{r}
+ggplot(male_data, aes(x=Year, y=Age))  +
+  geom_point() + 
+  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
+  scale_fill_distiller(palette = "Spectral") +
+  ylim(0,100)
+```
+```{r}
+ggplot(fem_data, aes(x=Year, y=Age))  +
+  geom_point() + 
+  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
+  scale_fill_distiller(palette = "Spectral") +
+  ylim(0,100)
+```
+
+
+```{r}
+ggplot(male_data, aes(Age, color = as.factor(Year))) +
+  geom_density()
+  
+```
+
+```{r}
+ggplot(fem_data, aes(Age, color = as.factor(Year))) +
+  geom_density()
+  
+```
 
 # Conclusion
 

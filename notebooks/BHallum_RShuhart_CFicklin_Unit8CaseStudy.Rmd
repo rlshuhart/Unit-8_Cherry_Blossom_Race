@@ -28,6 +28,7 @@ distributions change over the years? Was it a gradual change?
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
+require(gridExtra)
 ```
 
 ```{r}
@@ -44,7 +45,7 @@ find_gen <- function(Age, Year) {
 
 # Select 1999-2012 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds") %>%
-  filter(Year %in% c(1999:2012)) %>%
+  filter(Year %in% c(1999:2016)) %>%
   select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
          Event = as.factor(Event),
@@ -70,28 +71,32 @@ str(run_data)
 
 # Results 
 
-## Distribution of Age Over Years 1999 to 2012
+## Distribution of Age Over Years 1999 to 2016
 ```{r}
 median_age <- group_by(run_data, Year) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
 
-ggplot(median_age, aes(x=Year, y=Med_Age)) + 
+median_age_line <- ggplot(median_age, aes(x=Year, y=Med_Age)) + 
   geom_line() + 
   labs(title=paste("Median Age Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
 ```
 
-```{r}
-ggplot(run_data, aes(Year, fill=Generation, color=Generation)) + 
-  geom_bar(position="fill") 
+```{r, fig.height=5, fig.width=11}
+generation_plot <- ggplot(run_data[!is.na(run_data$Generation),], aes(Year, fill=Generation, color=Generation)) + 
+  geom_bar(position="fill", width = 1) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title="Generational Proportions by Year")
   
+grid.arrange(median_age_line, generation_plot, ncol=2)
 ```
 
+
 ```{r}
-ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill")
+ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill") 
 ```
 
 ```{r, fig.height=8, fig.width=8, warning=FALSE}
-require(gridExtra)
+
 male_data = filter(run_data, Sex == "M")
 fem_data = filter(run_data, Sex == "W")
 
@@ -100,7 +105,8 @@ m_plot <- ggplot(male_data, aes(x=TimeInMin, y=Age))  +
   stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
   scale_fill_distiller(palette = "Spectral") +
   xlim(40, 180) +
-  ylim(0,100)
+  ylim(0,100) +
+  labs(title="Male Runners - Age vs Time")
 
 f_plot <- ggplot(fem_data, aes(x=TimeInMin, y=Age))  +
   geom_point() + 

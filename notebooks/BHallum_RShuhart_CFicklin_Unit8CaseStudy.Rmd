@@ -1,5 +1,5 @@
 ---
-title: "Modeling Runners' Times in the Cherry Blossom Race"
+title: "Modeling Runners' Times in the Cherry Blossom Race - Question 10"
 author: "Brett Hallum, Chris Ficklin, and Ryan Shuhart"
 date: "March 2017"
 output:
@@ -15,13 +15,25 @@ Q.10 We have seen that the 1999 runners were typically older than the 2012 runne
 Compare the age distribution of the runners across all 14 years of the races. Use
 quantile plots, boxplots, and density curves to make your comparisons. How do the
 distributions change over the years? Was it a gradual change?
-
-#### Other idea to possibly explore:
-* Did the same drop in the age distibution occur for both male and female?
-
-* Did the younger generation participation grow faster than older groups?
-    * Plot median age by generation
 </font>
+
+#### Outline for Planning Purposes
+* Introduction
+* Background
+    + History of Blossom Race
+    + Registration problem occurred
+    + Time to close registration
+    + Introduction of lottery
+* Methods
+    + Data gathering process via web scrapping
+        - Scraped searchable results site between 1999-2016
+        - Gathered time of registration from web.archive.org
+    + Discription of data
+        - Variable names and description used in analysis
+* Results 
+    + Age Distribution between 1999-2016 [or wider range]
+    + Changepoint analysis
+* Conclusion
 
 
 
@@ -44,8 +56,10 @@ find_gen <- function(Age, Year) {
 }
 
 # Select 1999-2012 data and make a few transformations
-run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds") %>%
-  filter(Year %in% c(1999:2016)) %>%
+run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
+run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
+run_data <- run_data %>%
+  #filter(Year %in% c(1999:2016)) %>%
   select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
          Event = as.factor(Event),
@@ -72,54 +86,38 @@ str(run_data)
 # Results 
 
 ## Distribution of Age Over Years 1999 to 2016
-```{r}
+```{r, fig.height=5, fig.width=11}
+runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
+
 median_age <- group_by(run_data, Year) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
 
 median_age_line <- ggplot(median_age, aes(x=Year, y=Med_Age)) + 
-  geom_line() + 
+  geom_line(size = 1.25) + 
   labs(title=paste("Median Age Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
-```
 
-```{r, fig.height=5, fig.width=11}
-generation_plot <- ggplot(run_data[!is.na(run_data$Generation),], aes(Year, fill=Generation, color=Generation)) + 
-  geom_bar(position="fill", width = 1) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(title="Generational Proportions by Year")
+median_age_by_sex <- group_by(run_data, Year, Sex) %>%
+  summarize(Med_Age = median(Age, na.rm = TRUE))
+
+median_age_by_sex_line <- ggplot(median_age_by_sex, aes(x=Year, y=Med_Age, color = Sex)) + 
+  geom_line(size = 1.25) + 
+  scale_color_manual(values=c("#1D829F","#DF438A")) +
+  labs(title=paste("Median Age by Sex Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
+
   
-grid.arrange(median_age_line, generation_plot, ncol=2)
+grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
 ```
 
 
 ```{r}
-ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill") 
+ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill", width=1) 
 ```
 
-```{r, fig.height=8, fig.width=8, warning=FALSE}
 
+```{r}
 male_data = filter(run_data, Sex == "M")
 fem_data = filter(run_data, Sex == "W")
 
-m_plot <- ggplot(male_data, aes(x=TimeInMin, y=Age))  +
-  geom_point() + 
-  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral") +
-  xlim(40, 180) +
-  ylim(0,100) +
-  labs(title="Male Runners - Age vs Time")
-
-f_plot <- ggplot(fem_data, aes(x=TimeInMin, y=Age))  +
-  geom_point() + 
-  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral") +
-  xlim(40, 180)+
-  ylim(0,100)
-
-grid.arrange(m_plot, f_plot, nrow=2)
-```
-
-
-```{r}
 ggplot(male_data, aes(x=Year, y=Age))  +
   geom_point() + 
   stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
@@ -171,6 +169,7 @@ summary(cp2010.fit)
 The p-value for cp2010 is highly significant, suggesting that there was a change to the slope representing median age occurring in 2010, the same year as the registration format changed.
 
 Additionally, the highly significant p-value for Year rejects the hypothesis that the slope is (1 or horizontal, I need to check that out)
+
 
 
 # Conclusion

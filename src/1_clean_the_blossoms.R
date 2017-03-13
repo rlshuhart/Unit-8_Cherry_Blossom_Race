@@ -1,7 +1,7 @@
 library(dplyr)
 library(stringr)
 
-external_data <- "run_data_1990-2016.rds"
+external_data <- "run_data_1973-1989.rds"
 run_data <- readRDS(paste("../data/external/",external_data, sep=""))
 
 ############################ Time Clean Up ############################ 

@@ -50,13 +50,9 @@ run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
 #run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
 run_data <- run_data %>%
   filter(Year %in% c(1999:2016)) %>%
-  select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
+  # Excluding Event because only 10m and Division, because not used.
+  select(Name, Sex, Age, Year, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
-         Event = as.factor(Event),
-         Division = as.factor(Division),
-         Generation = ordered(find_gen(Age, Year), 
-                              levels= c("Unknown", "Silent", "Boomer", 
-                                        "Gen X", "Gen Y", "Gen Z")),
          AgeCat = cut(Age, breaks= c(seq(15, 75, 10), 90)))
 
 

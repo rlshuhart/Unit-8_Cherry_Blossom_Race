@@ -53,7 +53,7 @@ run_data <- run_data %>%
   # Excluding Event because only 10m and Division, because not used.
   select(Name, Sex, Age, Year, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
-         AgeCat = cut(Age, breaks= c(seq(15, 75, 10), 90)))
+         AgeCat = ordered(cut(Age, breaks= c(0,seq(15, 75, 10), 90))))
 
 
 str(run_data)
@@ -102,7 +102,7 @@ grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
 
 ```{r}
 ggplot(run_data, aes(Year, fill=AgeCat)) + 
-  geom_bar(position="fill", width=1) +
+  geom_bar(position=position_fill(reverse=TRUE), width=1) + 
   labs(title="(Fig. #) Proportion of Age Groups by Year")
 ```
 

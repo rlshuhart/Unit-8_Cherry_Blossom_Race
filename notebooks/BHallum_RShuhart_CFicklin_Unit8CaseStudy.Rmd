@@ -21,7 +21,8 @@ distributions change over the years? Was it a gradual change?
 * Introduction
 * Background
     + History of Blossom Race
-    + Registration problem occurred
+    + Registration problems occurred
+        + Online traffic overwhelmed
     + Time to close registration
     + Introduction of lottery
 * Methods
@@ -44,29 +45,14 @@ require(gridExtra)
 ```
 
 ```{r}
-# This functions categorizes the age of runners in to defined birthed generations
-# Generation definition source: http://genhq.com/faq-info-about-generations/
-find_gen <- function(Age, Year) {
-  birth_year <- Year - Age
-  if_else(birth_year >= 1996, "Gen Z",
-          if_else(birth_year >= 1997, "Gen Y",
-                  if_else(birth_year >= 1965, "Gen X",
-                          if_else(birth_year >= 1946, "Boomer",
-                                  if_else(birth_year < 1946, "Silent", "Unknown")))))
-}
-
-# Select 1999-2012 data and make a few transformations
+# Select 1999-2016 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
 #run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
 run_data <- run_data %>%
-  #filter(Year %in% c(1999:2016)) %>%
-  select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
+  filter(Year %in% c(1999:2016)) %>%
+  # Excluding Event because only 10m and Division, because not used.
+  select(Name, Sex, Age, Year, TimeInMin, PaceInMin) %>%
   mutate(Sex = as.factor(Sex),
-         Event = as.factor(Event),
-         Division = as.factor(Division),
-         Generation = ordered(find_gen(Age, Year), 
-                              levels= c("Unknown", "Silent", "Boomer", 
-                                        "Gen X", "Gen Y", "Gen Z")),
          AgeCat = cut(Age, breaks= c(seq(15, 75, 10), 90)))
 
 
@@ -78,6 +64,13 @@ str(run_data)
 
 
 # Background
+```{r}
+runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
+
+ggplot(runner_count, aes(x=Year, y=Runner_Count)) + 
+  geom_line(size=1.25) + 
+  labs(title="(Fig. #) Median Age")
+```
 
 
 # Methods
@@ -87,14 +80,12 @@ str(run_data)
 
 ## Distribution of Age Over Years 1999 to 2016
 ```{r, fig.height=5, fig.width=11}
-runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
-
 median_age <- group_by(run_data, Year) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
 
 median_age_line <- ggplot(median_age, aes(x=Year, y=Med_Age)) + 
   geom_line(size = 1.25) + 
-  labs(title=paste("Median Age Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
+  labs(title="(Fig. #) Median Age")
 
 median_age_by_sex <- group_by(run_data, Year, Sex) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
@@ -102,7 +93,7 @@ median_age_by_sex <- group_by(run_data, Year, Sex) %>%
 median_age_by_sex_line <- ggplot(median_age_by_sex, aes(x=Year, y=Med_Age, color = Sex)) + 
   geom_line(size = 1.25) + 
   scale_color_manual(values=c("#1D829F","#DF438A")) +
-  labs(title=paste("Median Age by Sex Between ", min(median_age$Year), " - ", max(median_age$Year), sep=""))
+  labs(title="(Fig. #) Median Age by Sex")
 
   
 grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
@@ -110,39 +101,58 @@ grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
 
 
 ```{r}
-ggplot(run_data, aes(Year, fill=AgeCat)) + geom_bar(position="fill", width=1) 
+ggplot(run_data, aes(Year, fill=AgeCat)) + 
+  geom_bar(position="fill", width=1) +
+  labs(title="(Fig. #) Proportion of Age Groups by Year")
 ```
 
 
-```{r}
+```{r, fig.height=6, fig.width=8, warning=FALSE}
 male_data = filter(run_data, Sex == "M")
 fem_data = filter(run_data, Sex == "W")
 
-ggplot(male_data, aes(x=Year, y=Age))  +
+m_den1 <- ggplot(male_data, aes(x=Year, y=Age))  +
   geom_point() + 
   stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral") +
-  ylim(0,100)
-```
-```{r}
-ggplot(fem_data, aes(x=Year, y=Age))  +
+  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
+  ylim(0,100) +
+  theme(legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(.25,"cm"),
+        plot.title = element_text(size = rel(1))
+        ) +
+  labs(title="(Fig. #) Density Heat Map for Men")
+
+f_den1 <- ggplot(fem_data, aes(x=Year, y=Age))  +
   geom_point() + 
   stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral") +
-  ylim(0,100)
-```
+  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
+  ylim(0,100) +
+  theme(legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(.25,"cm"),
+        plot.title = element_text(size = rel(1))
+        ) +
+  labs(title="(Fig. #) Density Heat Map for Women")
 
-
-```{r}
-ggplot(male_data, aes(Age, color = as.factor(Year))) +
-  geom_density()
+m_den2 <- ggplot(male_data, aes(Age, color = as.factor(Year))) +
+  geom_density() + 
+  scale_color_discrete(name = "Year") +
+  theme(legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(.25,"cm"),
+        plot.title = element_text(size = rel(1))
+        ) +
+  labs(title="(Fig. #) Distribution Density of Age for Men")
   
-```
-
-```{r}
-ggplot(fem_data, aes(Age, color = as.factor(Year))) +
-  geom_density()
+f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
+  geom_density()+ 
+  scale_color_discrete(name = "Year") +
+  theme(legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(.25,"cm"),
+        plot.title = element_text(size = rel(1))
+        ) +
+  labs(title="(Fig. #) Distribution Density of Age for Women")
   
+  
+grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
 ```
 
 ```{r}

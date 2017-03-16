@@ -57,7 +57,7 @@ find_gen <- function(Age, Year) {
 
 # Select 1999-2012 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
-run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
+#run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
 run_data <- run_data %>%
   #filter(Year %in% c(1999:2016)) %>%
   select(Name, Sex, Age, Event, Year, Division, TimeInMin, PaceInMin) %>%
@@ -169,6 +169,7 @@ summary(cp2010.fit)
 The p-value for cp2010 is highly significant, suggesting that there was a change to the slope representing median age occurring in 2010, the same year as the registration format changed.
 
 Additionally, the highly significant p-value for Year rejects the hypothesis that the slope is (1 or horizontal, I need to check that out)
+
 
 
 

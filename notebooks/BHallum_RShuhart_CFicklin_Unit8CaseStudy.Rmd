@@ -69,7 +69,7 @@ runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
 
 ggplot(runner_count, aes(x=Year, y=Runner_Count)) + 
   geom_line(size=1.25) + 
-  labs(title="(Fig. #) Median Age")
+  labs(title="(Fig. 1) Runner Count by Year")
 ```
 
 
@@ -85,7 +85,7 @@ median_age <- group_by(run_data, Year) %>%
 
 median_age_line <- ggplot(median_age, aes(x=Year, y=Med_Age)) + 
   geom_line(size = 1.25) + 
-  labs(title="(Fig. #) Median Age")
+  labs(title="(Fig. 2) Median Age")
 
 median_age_by_sex <- group_by(run_data, Year, Sex) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
@@ -93,7 +93,7 @@ median_age_by_sex <- group_by(run_data, Year, Sex) %>%
 median_age_by_sex_line <- ggplot(median_age_by_sex, aes(x=Year, y=Med_Age, color = Sex)) + 
   geom_line(size = 1.25) + 
   scale_color_manual(values=c("#1D829F","#DF438A")) +
-  labs(title="(Fig. #) Median Age by Sex")
+  labs(title="(Fig. 3) Median Age by Sex")
 
   
 grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
@@ -103,7 +103,7 @@ grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
 ```{r}
 ggplot(run_data, aes(Year, fill=AgeCat)) + 
   geom_bar(position=position_fill(reverse=TRUE), width=1) + 
-  labs(title="(Fig. #) Proportion of Age Groups by Year")
+  labs(title="(Fig. 4) Proportion of Age Groups by Year")
 ```
 
 
@@ -120,7 +120,7 @@ m_den1 <- ggplot(male_data, aes(x=Year, y=Age))  +
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
         ) +
-  labs(title="(Fig. #) Density Heat Map for Men")
+  labs(title="(Fig. 5) Density Heat Map for Men")
 
 f_den1 <- ggplot(fem_data, aes(x=Year, y=Age))  +
   geom_point() + 
@@ -131,7 +131,7 @@ f_den1 <- ggplot(fem_data, aes(x=Year, y=Age))  +
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
         ) +
-  labs(title="(Fig. #) Density Heat Map for Women")
+  labs(title="(Fig. 6) Density Heat Map for Women")
 
 m_den2 <- ggplot(male_data, aes(Age, color = as.factor(Year))) +
   geom_density() + 
@@ -140,7 +140,7 @@ m_den2 <- ggplot(male_data, aes(Age, color = as.factor(Year))) +
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
         ) +
-  labs(title="(Fig. #) Distribution Density of Age for Men")
+  labs(title="(Fig. 7) Distribution Density of Age for Men")
   
 f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
   geom_density()+ 
@@ -149,7 +149,7 @@ f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
         ) +
-  labs(title="(Fig. #) Distribution Density of Age for Women")
+  labs(title="(Fig. 8) Distribution Density of Age for Women")
   
   
 grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
@@ -159,7 +159,7 @@ grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
 ## Create a plot of median age data after fitting a linear model
 lmfit <- lm(Med_Age ~ Year, data = median_age)
 plotdata <- ggplot(data = median_age, aes(x=Year, y=Med_Age))+
-  ggtitle("Median Age")+
+  ggtitle("(Fig 9) Median Age")+
   geom_point(size=3)+
   geom_abline(intercept = coef(lmfit)[1], slope = coef(lmfit)[2])
 plotdata

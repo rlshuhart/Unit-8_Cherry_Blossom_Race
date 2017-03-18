@@ -51,13 +51,20 @@ run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
 run_data <- run_data %>%
   filter(Year %in% c(1999:2016)) %>%
   # Excluding Event because only 10m and Division, because not used.
-  select(Name, Sex, Age, Year, TimeInMin, PaceInMin) %>%
+  select(Name, Sex, Age, Year) %>%
   mutate(Sex = as.factor(Sex),
          AgeCat = ordered(cut(Age, breaks= c(0,seq(15, 75, 10), 90))))
 
+age_props <- run_data %>% 
+  filter(!is.na(Age)) %>%
+  group_by(Year, Sex, Age) %>% 
+  summarize(n = n()) %>%
+  group_by(Year, Sex) %>%
+  mutate(YearAgeProp = n / sum(n))
 
-str(run_data)
+runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
 ```
+
 
 
 # Introduction
@@ -65,8 +72,6 @@ str(run_data)
 
 # Background
 ```{r}
-runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
-
 ggplot(runner_count, aes(x=Year, y=Runner_Count)) + 
   geom_line(size=1.25) + 
   labs(title="(Fig. 1) Runner Count by Year")
@@ -107,26 +112,29 @@ ggplot(run_data, aes(Year, fill=AgeCat)) +
 ```
 
 
-```{r, fig.height=6, fig.width=8, warning=FALSE}
+```{r, fig.height=6, fig.width=10, warning=FALSE}
+# split be gender
 male_data = filter(run_data, Sex == "M")
 fem_data = filter(run_data, Sex == "W")
 
-m_den1 <- ggplot(male_data, aes(x=Year, y=Age))  +
-  geom_point() + 
-  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
+# Proportionally
+male_data_prop = filter(age_props, Sex == "M")
+fem_data_prop = filter(age_props, Sex == "W")
+
+m_den1 <- ggplot(male_data_prop, aes(x=Year, y=Age, fill=YearAgeProp))  +
+  geom_raster() +
   ylim(0,100) +
+  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
   theme(legend.margin = margin(0,0,0,0),
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
         ) +
   labs(title="(Fig. 5) Density Heat Map for Men")
 
-f_den1 <- ggplot(fem_data, aes(x=Year, y=Age))  +
-  geom_point() + 
-  stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE) + 
-  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
+f_den1 <- ggplot(fem_data_prop, aes(x=Year, y=Age, fill=YearAgeProp))  +
+  geom_raster() +
   ylim(0,100) +
+  scale_fill_distiller(palette = "Spectral", guide=FALSE) +
   theme(legend.margin = margin(0,0,0,0),
         legend.key.size = unit(.25,"cm"),
         plot.title = element_text(size = rel(1))
@@ -154,6 +162,7 @@ f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
   
 grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
 ```
+
 
 ```{r}
 ## Create a plot of median age data after fitting a linear model

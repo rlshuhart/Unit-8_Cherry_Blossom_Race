@@ -162,55 +162,33 @@ f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
   
 grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
 ```
-
-
 ```{r}
-## Create a plot of median age data after fitting a linear model
-lmfit <- lm(Med_Age ~ Year, data = median_age)
-plotdata <- ggplot(data = median_age, aes(x=Year, y=Med_Age))+
-  ggtitle("(Fig 9) Median Age")+
-  geom_point(size=3)+
-  geom_abline(intercept = coef(lmfit)[1], slope = coef(lmfit)[2])
-plotdata
-```
-```{r}
-## Add a variable for a known change point at 2010
-## Corresponding to the known change to the lottery registration format which eliminated the first-come, first-serve factor
+## Add a variable for a known change point at 2010 corresponding to introduction of the lottery registration format which eliminated the first-come, first-serve factor
 median_age$cp2010 <- pmax(0, median_age$Year-2010)
-median_age$Year
-median_age$cp2010
-```
-```{r}
 ## Fit the known change point model
 cp2010.fit <- lm(Med_Age ~ Year +cp2010, data = median_age)
 summary(cp2010.fit)
 ```
+
 The p-value for cp2010 is highly significant, suggesting that there was a change to the slope representing median age occurring in 2010, the same year as the registration format changed.
 
 Additionally, the highly significant p-value for Year rejects the hypothesis that the slope is (1 or horizontal, I need to check that out)
 
-
-
-
+```{r}
+## Same 2010 known CP analysis for males only
+male_median_age <- filter(median_age_by_sex, Sex == "M")
+male_median_age$male_cp2010 <- pmax(0, male_median_age$Year-2010)
+male_cp2010.fit <- lm(Med_Age ~ Year +male_cp2010, data = male_median_age)
+summary(male_cp2010.fit)
+```
+```{r}
+## Same 2010 known CP analysis for females only
+fem_median_age <- filter(median_age_by_sex, Sex == "W")
+fem_median_age$fem_cp2010 <- pmax(0, fem_median_age$Year-2010)
+fem_cp2010.fit <- lm(Med_Age ~ Year +fem_cp2010, data = fem_median_age)
+summary(fem_cp2010.fit)
+```
 # Conclusion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

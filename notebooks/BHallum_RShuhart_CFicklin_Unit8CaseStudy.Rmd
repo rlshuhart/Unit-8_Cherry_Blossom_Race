@@ -92,7 +92,7 @@ Median age is helpful, but it can obscure changes occurring across age ranges. F
 
 The largest age group (26-35) appears to have relatively consistent participation up to around 2006, followed by increasing representation for a few years which seems to contribute to the decline older categories during that time.
 ```{r, fig.height=6, fig.width=10, warning=FALSE}
-# split be gender
+# split by gender
 male_data = filter(run_data, Sex == "M")
 fem_data = filter(run_data, Sex == "W")
 

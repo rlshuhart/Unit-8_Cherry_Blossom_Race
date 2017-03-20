@@ -3,8 +3,8 @@ title: "Modeling Runners' Times in the Cherry Blossom Race - Question 10"
 author: "Brett Hallum, Chris Ficklin, and Ryan Shuhart"
 date: "March 2017"
 output:
-  html_notebook: default
   html_document: default
+  html_notebook: default
   pdf_document: default
 subtitle: MSDS 7333-401
 ---
@@ -14,7 +14,7 @@ The internet holds a wealth of free and interesting data from endless sources. T
 
 The source of data for this analysis comes from a 10-mile road race held annually in Washington D.C. The possible scopes of analysis, however, could be wide ranging. Archived results for the Credit Union Cherry Blossom 10-Mile Run are published on the official website and include the name, age, gender, hometown, finish time, and position for the thousands of participants, many of whom compete over multiple years. The results weren't compiled or made available for anything other than documenting the outcome of the event, yet it is a collection of information that could reveal all sorts of interesting findings on a variety of topics, from trends in the popularity of running and fitness consciousness among different demographics, to changes in performance potential as men and women age.
 
-After collecting the data, our analysis proceeds to examine changes to the age composition of the field over time. We observe an overall decrease in the median age of participants up to about 2010, followed by an apparent reversal of this trend through the present. Out of this come questions about the changing popularity of the race over time, which we examine through the annual registration capacity and other measures of demand. Finally, we propose a potential cause for the reversal occurring in 2010 and verify its presence using change point analysis.
+After collecting the data, our analysis proceeds to examine changes to the age composition of the field over time. We observe an overall decrease in the median age of participants up to about 2010, followed by an apparent reversal of this trend through the present. Out of this comes questions about the changing popularity of the race over time, which we examine through the annual registration capacity and other measures of demand. Finally, we propose a potential cause for the reversal occurring in 2010 and verify its presence using change point analysis.
 
 ## Data Collection
 
@@ -26,11 +26,11 @@ section=10M&year=2006&division=Overall+Women
 
 Each table consists of multiple pages, so we use another loop to run through every page of the table to capture all results.
 
-The collected data is relatively simple and requires little change from the original tabular format, and they are consistent for all years which greatly simplifies the process. The tables include the name, age, time, overall position, and hometown of each participant, all in string type form.  For our analysis, we utilize each runner's gender, age, race year, and the completion time in minutes. The time in minutes is converted from a string to a number and calculated (e.g. 00:48:15 is changed to 48.25 minutes).
+The collected data is relatively simple and requires little change from the original tabular format, and they are consistent for all years which greatly simplifies the process. The tables include the name, age, time, overall position, and hometown of each participant, all in string type form.  For our analysis, we utilize each runner's gender, age, and race year with their name as the observation identifier. 
 
 ## Analysis
 
-We begin by creating three additional data frames. Run_data contains the previously collected variables, plus a transformed column called AgeCat which assigns an age category for each runner (0-14, 15-25, 26-35, 36-45, 46-55, 56-65, 66-75 and 76-90). Age_props calculates the proportion of runners each year having a given age. Runner_count lists the number of runners for every year.
+We begin by creating three additional data frames. The data frame, run_data, contains the previously collected variables, plus a transformed column called AgeCat which assigns an age category for each runner (0-14, 15-25, 26-35, 36-45, 46-55, 56-65, 66-75 and 76-90). The age_props data frame is a summary of the proportion of runners each year having a given age. The runner_count data frame lists the number of runners for every year.
 ```{r, message=FALSE, warning=FALSE}
 # Import libraries
 library(dplyr)
@@ -40,7 +40,6 @@ require(gridExtra)
 ```{r}
 # Select 1999-2016 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
-#run_data <- rbind(run_data, readRDS("../data/processed/processed_run_data_1973-1989.rds"))
 run_data <- run_data %>%
   filter(Year %in% c(1999:2016)) %>%
   # Excluding Event because only 10m and Division, because not used.
@@ -195,3 +194,10 @@ summary(fem_cp2010.fit)
 We have shown conclusively that age distributions for both men and women became increasingly skewed and narrow around younger runners, especially in the late 2000's. We observed an apparent reversal of this trend around 2010, and verified its presence using known change point analysis, which was prompted by the discovery of a change to the registration processes in response to increasing demand for spots.
 
 The Cherry Blossom Race appears to have grown into a premier event. In the process, older or more casual runners who would have previously enjoyed the scenic race might have been displaced by increasing numbers of competitive runners who tend to skew younger. It seems likely that the halt and reversal of that trend is due at least in part to the move toward a registration lottery. Though the change is measurable, it is worth noting that it did not immediately or completely return the race composition to that of the early 2000's. This is not surprising. Initially it may have taken time for people who had been unable to secure spots leading up to the change to realize the change had occurred. Even then, demand still outpaces capacity, so it is expected that the most competitive runners will continue to make up a large proportion of the lottery pool.
+
+## Bibliography
+Data Science in R: A Case Studies Approach to Computational Reasoning and Problem Solving by Deborah Nolan and Duncan Temple Lang 
+http://www.cherryblossom.org/ 
+http://www.cballtimeresults.org/  
+https://cran.r-project.org/web/packages/rvest/index.html  
+http://docs.ggplot2.org/current/ 

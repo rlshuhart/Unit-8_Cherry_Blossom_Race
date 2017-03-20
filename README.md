@@ -2,6 +2,11 @@ Data Science in R: A Case Studies Approach to Computational Reasoning and Proble
 ==============================
 
 Unit 2 - Modeling Runners’ Times in the Cherry Blossom Race
+MSDS 7333-401
+Brett Hallum, Chris Ficklin, and Ryan Shuhart
+March 2017
+
+https://github.com/rlshuhart/Unit-8_Cherry_Blossom_Race/
 
 Project Organization
 ------------
@@ -11,6 +16,6 @@ Project Organization
     │   ├── external       <- external data not processed for modeling
     │   └── processed      <- The final, canonical data sets for modeling.
     │
-    ├── src                <- Scripts to download, generate, or clean data
+    ├── notebooks          <- R notebooks for exploration and analysis
     │    
-    └── notebooks          <- R notebooks for exploration and analysis
+    └── src                <- Scripts to download, generate, or clean data

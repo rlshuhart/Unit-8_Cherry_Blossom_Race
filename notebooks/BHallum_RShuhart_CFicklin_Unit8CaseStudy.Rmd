@@ -8,42 +8,35 @@ output:
   pdf_document: default
 subtitle: MSDS 7333-401
 ---
+## Introduction
 
-<font color = "green">
-### [Temporary]
-Q.10 We have seen that the 1999 runners were typically older than the 2012 runners.
-Compare the age distribution of the runners across all 14 years of the races. Use
-quantile plots, boxplots, and density curves to make your comparisons. How do the
-distributions change over the years? Was it a gradual change?
-</font>
+The internet holds a wealth of free and interesting data from endless sources. The ability to collect that information through techniques like web scraping makes it available for rich and clever analysis like nothing before. Rather than conduct purpose driven studies or surveys in response to a question, researchers can seek out information already available&mdash;usually as a byproduct of an entirely different purpose&mdash;that, with proper treatment and analysis, may reveal the same conclusions at lower cost and with greater ease.
 
-#### Outline for Planning Purposes
-* Introduction
-* Background
-    + History of Blossom Race
-    + Registration problems occurred
-        + Online traffic overwhelmed
-    + Time to close registration
-    + Introduction of lottery
-* Methods
-    + Data gathering process via web scrapping
-        - Scraped searchable results site between 1999-2016
-        - Gathered time of registration from web.archive.org
-    + Discription of data
-        - Variable names and description used in analysis
-* Results 
-    + Age Distribution between 1999-2016 [or wider range]
-    + Changepoint analysis
-* Conclusion
+The source of data for this analysis comes from a 10-mile road race held annually in Washington D.C. The possible scopes of analysis, however, could be wide ranging. Archived results for the Credit Union Cherry Blossom 10-Mile Run are published on the official website and include the name, age, gender, hometown, finish time, and position for the thousands of participants, many of whom compete over multiple years. The results weren't compiled or made available for anything other than documenting the outcome of the event, yet it is a collection of information that could reveal all sorts of interesting findings on a variety of topics, from trends in the popularity of running and fitness consciousness among different demographics, to changes in performance potential as men and women age.
 
+After collecting the data, our analysis proceeds to examine changes to the age composition of the field over time. We observe an overall decrease in the median age of participants up to about 2010, followed by an apparent reversal of this trend through the present. Out of this come questions about the changing popularity of the race over time, which we examine through the annual registration capacity and other measures of demand. Finally, we propose a potential cause for the reversal occurring in 2010 and verify its presence using change point analysis.
 
+## Data Collection
 
+We scrape the data in R using the rvest library by Hadley Wickam. Using the searchable Cherry Blossom Race results at http://www.cballtimeresults.org/performances, we search through all years from 1999 to 2016 and return web tables of results for men and women separately.
+
+The results website uses query parameters in the URL that help return the appropriate set of data. Using this, we iterate through both genders for each year of interest and obtain a table of the data. For example, when querying the 2006 data for female runners, we add the query parameters below to the URL to return the appropriate table.
+
+section=10M&year=2006&division=Overall+Women
+
+Each table consists of multiple pages, so we use another loop to run through every page of the table to capture all results.
+
+The collected data is relatively simple and requires little change from the original tabular format, and they are consistent for all years which greatly simplifies the process. The tables include the name, age, time, overall position, and hometown of each participant, all in string type form.  For our analysis, we utilize each runner's gender, age, race year, and the completion time in minutes. The time in minutes is converted from a string to a number and calculated (e.g. 00:48:15 is changed to 48.25 minutes).
+
+## Analysis
+
+We begin by creating three additional data frames. Run_data contains the previously collected variables, plus a transformed column called AgeCat which assigns an age category for each runner (0-14, 15-25, 26-35, 36-45, 46-55, 56-65, 66-75 and 76-90). Age_props calculates the proportion of runners each year having a given age. Runner_count lists the number of runners for every year.
 ```{r, message=FALSE, warning=FALSE}
+# Import libraries
 library(dplyr)
 library(ggplot2)
 require(gridExtra)
 ```
-
 ```{r}
 # Select 1999-2016 data and make a few transformations
 run_data <- readRDS("../data/processed/processed_run_data_1990-2016.rds")
@@ -64,26 +57,12 @@ age_props <- run_data %>%
 
 runner_count <- group_by(run_data, Year) %>% summarize(Runner_Count = n())
 ```
-
-
-
-# Introduction
-
-
-# Background
 ```{r}
 ggplot(runner_count, aes(x=Year, y=Runner_Count)) + 
   geom_line(size=1.25) + 
   labs(title="(Fig. 1) Runner Count by Year")
 ```
-
-
-# Methods
-
-
-# Results 
-
-## Distribution of Age Over Years 1999 to 2016
+Next we plot a line chart (Fig. 1) to explore changes to race participation over our years of interest. It shows a relatively steady increase most years, with a minimum of 5,182 in 2000 and a maximum of 17,880 in 2015. This information ends up informing our later analysis as we consider potential causes for the changing age makeup over the years.
 ```{r, fig.height=5, fig.width=11}
 median_age <- group_by(run_data, Year) %>%
   summarize(Med_Age = median(Age, na.rm = TRUE))
@@ -103,15 +82,15 @@ median_age_by_sex_line <- ggplot(median_age_by_sex, aes(x=Year, y=Med_Age, color
   
 grid.arrange(median_age_line, median_age_by_sex_line, ncol=2)
 ```
-
-
+Two more data frames are created based on the calculated median age of runners in each year, one separated by gender and another combined. The line charts in figures 2 and 3 display the results. We notice a fairly pronounced and steady decrease in the overall median age (Fig. 2) until around 2010, where the trend seems to reverse. The pattern is similar for men and women (Fig. 3), though a little less consistent. The median age of women, for example, is steady at 31 years from 2006 to 2011. Male runners are on average older than females across the entire time frame by about 5 years.
 ```{r}
 ggplot(run_data, aes(Year, fill=AgeCat)) + 
   geom_bar(position=position_fill(reverse=TRUE), width=1) + 
   labs(title="(Fig. 4) Proportion of Age Groups by Year")
 ```
+Median age is helpful, but it can obscure changes occurring across age ranges. Figure 4 provides a closer look by displaying the proportion of runners in each age category. Runners in the 16-25 age group show an increasing proportion until around 2007, followed by a plateau then decline after 2010. Years where their proportion is increasing appears to offset decreasing participation in categories older than 35, while their decline after 2010 seems to go mostly to those 55 and older.
 
-
+The largest age group (26-35) appears to have relatively consistent participation up to around 2006, followed by increasing representation for a few years which seems to contribute to the decline older categories during that time.
 ```{r, fig.height=6, fig.width=10, warning=FALSE}
 # split be gender
 male_data = filter(run_data, Sex == "M")
@@ -123,7 +102,7 @@ fem_data_prop = filter(age_props, Sex == "W")
 
 m_den1 <- ggplot(male_data_prop, aes(x=Year, y=Age, fill=YearAgeProp))  +
   geom_raster() +
-  ylim(0,100) +
+  ylim(0,90) +
   scale_fill_distiller(palette = "Spectral", guide=FALSE) +
   theme(legend.margin = margin(0,0,0,0),
         legend.key.size = unit(.25,"cm"),
@@ -133,7 +112,7 @@ m_den1 <- ggplot(male_data_prop, aes(x=Year, y=Age, fill=YearAgeProp))  +
 
 f_den1 <- ggplot(fem_data_prop, aes(x=Year, y=Age, fill=YearAgeProp))  +
   geom_raster() +
-  ylim(0,100) +
+  ylim(0,90) +
   scale_fill_distiller(palette = "Spectral", guide=FALSE) +
   theme(legend.margin = margin(0,0,0,0),
         legend.key.size = unit(.25,"cm"),
@@ -162,6 +141,31 @@ f_den2 <- ggplot(fem_data, aes(Age, color = as.factor(Year))) +
   
 grid.arrange(m_den1, m_den2, f_den1, f_den2, nrow=2, ncol=2)
 ```
+The density heat maps above (Figs. 5 and 6) provide the most granular possible look at the age composition in each year. Every age represented in a given race is visible, with the color indicating the proportion of runners having that age. They are quite informative. The minimum and maximum are visible, and it's possible to tell how much of an outlier each might be. For sparsely represented ages, it is sometimes possible to pick out individual runners who appear to have participated several years in a row. 
+
+Our focus, of course, is the changing composition over the years. For both men and women, the most intense areas do inch down pretty steadily from 1999 to around 2009. At the same time, the degree of intensity is also increasing, especially in the late 2000's. Together these indicate both a shift in the distributions and as well as a narrowing. The effect is particularly prominent among men.
+
+As the concentration of younger runners increases during that period, we observe that older runners have less proportional representation than in prior races. Notice in the early years how there are shades of light green still visible at the upper ages and how consistently blue those same ages are by 2009.
+
+The density distributions (Figs. 7 and 8) provide a different take on the same data. As discussed above, there is both a shift toward lower ages and narrowing around them. The narrowing among the men is again starkly evident.
+
+Both visualizations show the trend stopping and beginning to reverse around 2010. It eases off a bit more quickly among the females, but is visible for both. As expected, older runners begin to make up a larger proportion post-2010.
+
+___
+
+The observations so far have shown an increasing proportion of younger runners, especially those in their mid- to late-20's, up to around 2010, followed by a trend reversal. So far, however, no real clues have emerged as to why. It could be attributed to rising health consciousness or popularity of running among that specific demographic, but it seems somewhat odd that it would reverse. After all, the overall number of participants continued to increase (Fig. 1), so the change would seem to mark a big departure away from the race in an age category that tends to be most competitive.
+
+To continue exploring the question we collect some additional data. A press release on the website from 2009 sheds potential clues (http://www.cherryblossom.org/emails/100609release.html). It states that beginning with the 2010 race, registration was held by a lottery entered over a 10-day period. Prior to this, registration was done online on first-come basis. They note that available spots filled up increasingly fast in the several years prior, taking 29 hours in 2006, 21.5 hours in 2007, 4 hours in 2008, and only 2.75 hours in 2009. That is despite more spots being made available every year (Fig. 1).
+
+This is interesting for several reasons. Primarily it indicates increasing popularity and demand for this race. This suggest a new hypothesis&mdash;that the race gained increasing prominence as a competitive event over time, leading to greater demand among serious runners who likely skew younger. That alone could potentially explain the age trend up to 2010. Combine that with a registration process that probably favored runners who are most serious and/or digitally connected, and it seems reasonable that casual runners (presumably older on average), who might have participated for fun in the past, ended up crowded out before the introduction of the lottery which increased the window of time to register and reduced the advantage to the highest demanders.
+
+It may not be possible to attribute certain causality. Perhaps the trends in age participation were due to a combination of factors. We can, however, attempt to statistically verify the presence of a change point in 2010 to continue or disprove that line of inquiry. To do this we utilize known change point analysis for that year, corresponding with the adoption of the lottery registration process.
+
+___
+
+The statistic we test is median age&mdash;initially the overall median, then by gender.
+
+The results below show the p-value for cp2010 (p < .0001) being highly significant, indicating a change to the slope of overall median age occurring in 2010, the same year the registration format changed. Based on Figure 2 above, it isn't entirely surprising, but still encouraging given the degree of certainty.
 ```{r}
 ## Add a variable for a known change point at 2010 corresponding to introduction of the lottery registration format which eliminated the first-come, first-serve factor
 median_age$cp2010 <- pmax(0, median_age$Year-2010)
@@ -169,11 +173,8 @@ median_age$cp2010 <- pmax(0, median_age$Year-2010)
 cp2010.fit <- lm(Med_Age ~ Year +cp2010, data = median_age)
 summary(cp2010.fit)
 ```
-
-The p-value for cp2010 is highly significant, suggesting that there was a change to the slope representing median age occurring in 2010, the same year as the registration format changed.
-
-Additionally, the highly significant p-value for Year rejects the hypothesis that the slope is (1 or horizontal, I need to check that out)
-
+The median age trends by gender (Fig. 3) are perhaps slightly less certain, so we test both genders for the change point as well.
+As before, the results are highly significant (both p < .0001) for a 2010 change point in the median age, indicating that the race composition of both men and women changed at the same time the lottery was introduced.
 ```{r}
 ## Same 2010 known CP analysis for males only
 male_median_age <- filter(median_age_by_sex, Sex == "M")
@@ -181,6 +182,7 @@ male_median_age$male_cp2010 <- pmax(0, male_median_age$Year-2010)
 male_cp2010.fit <- lm(Med_Age ~ Year +male_cp2010, data = male_median_age)
 summary(male_cp2010.fit)
 ```
+
 ```{r}
 ## Same 2010 known CP analysis for females only
 fem_median_age <- filter(median_age_by_sex, Sex == "W")
@@ -188,17 +190,8 @@ fem_median_age$fem_cp2010 <- pmax(0, fem_median_age$Year-2010)
 fem_cp2010.fit <- lm(Med_Age ~ Year +fem_cp2010, data = fem_median_age)
 summary(fem_cp2010.fit)
 ```
-# Conclusion
+## Conclusion
 
+We have shown conclusively that age distributions for both men and women became increasingly skewed and narrow around younger runners, especially in the late 2000's. We observed an apparent reversal of this trend around 2010, and verified its presence using known change point analysis, which was prompted by the discovery of a change to the registration processes in response to increasing demand for spots.
 
-
-
-
-
-
-
-
-
-
-
-
+The Cherry Blossom Race appears to have grown into a premier event. In the process, older or more casual runners who would have previously enjoyed the scenic race might have been displaced by increasing numbers of competitive runners who tend to skew younger. It seems likely that the halt and reversal of that trend is due at least in part to the move toward a registration lottery. Though the change is measurable, it is worth noting that it did not immediately or completely return the race composition to that of the early 2000's. This is not surprising. Initially it may have taken time for people who had been unable to secure spots leading up to the change to realize the change had occurred. Even then, demand still outpaces capacity, so it is expected that the most competitive runners will continue to make up a large proportion of the lottery pool.

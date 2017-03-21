@@ -3,11 +3,13 @@ title: "Modeling Runners' Times in the Cherry Blossom Race - Question 10"
 author: "Brett Hallum, Chris Ficklin, and Ryan Shuhart"
 date: "March 2017"
 output:
-  html_document: default
   html_notebook: default
+  html_document: default
   pdf_document: default
 subtitle: MSDS 7333-401
 ---
+https://github.com/rlshuhart/Unit-8_Cherry_Blossom_Race/ 
+
 ## Introduction
 
 The internet holds a wealth of free and interesting data from endless sources. The ability to collect that information through techniques like web scraping makes it available for rich and clever analysis like nothing before. Rather than conduct purpose driven studies or surveys in response to a question, researchers can seek out information already available&mdash;usually as a byproduct of an entirely different purpose&mdash;that, with proper treatment and analysis, may reveal the same conclusions at lower cost and with greater ease.
@@ -196,8 +198,8 @@ We have shown conclusively that age distributions for both men and women became 
 The Cherry Blossom Race appears to have grown into a premier event. In the process, older or more casual runners who would have previously enjoyed the scenic race might have been displaced by increasing numbers of competitive runners who tend to skew younger. It seems likely that the halt and reversal of that trend is due at least in part to the move toward a registration lottery. Though the change is measurable, it is worth noting that it did not immediately or completely return the race composition to that of the early 2000's. This is not surprising. Initially it may have taken time for people who had been unable to secure spots leading up to the change to realize the change had occurred. Even then, demand still outpaces capacity, so it is expected that the most competitive runners will continue to make up a large proportion of the lottery pool.
 
 ## Bibliography
-Data Science in R: A Case Studies Approach to Computational Reasoning and Problem Solving by Deborah Nolan and Duncan Temple Lang 
-http://www.cherryblossom.org/ 
-http://www.cballtimeresults.org/  
-https://cran.r-project.org/web/packages/rvest/index.html  
-http://docs.ggplot2.org/current/ 
+* Data Science in R: A Case Studies Approach to Computational Reasoning and Problem Solving by Deborah Nolan and Duncan Temple Lang 
+* http://www.cherryblossom.org/ 
+* http://www.cballtimeresults.org/  
+* https://cran.r-project.org/web/packages/rvest/index.html  
+* http://docs.ggplot2.org/current/ 
